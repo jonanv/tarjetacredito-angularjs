@@ -7,6 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TarjetaCreditoComponent implements OnInit {
 
+  creditCards: any[] = [
+    {
+      name: 'Juan Perez',
+      cardNumber: '432424344',
+      dateExpiration: '11/23',
+      cvv: '123'
+    },
+    {
+      name: 'Juan Perez',
+      cardNumber: '432424344',
+      dateExpiration: '11/23',
+      cvv: '123'
+    }
+  ];
+
   constructor() { }
 
   ngOnInit(): void {

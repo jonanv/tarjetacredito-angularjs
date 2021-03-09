@@ -23,6 +23,30 @@
       <div class="card">
         <div class="card-body">
           <h3 class="titulo">LISTA DE TARJETAS</h3>
+          <table class="table">
+            <thead>
+              <th>
+                <tr></tr>
+              </th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let creditCard of creditCards">
+                <td>{{ creditCard.name }}</td>
+                <td>{{ creditCard.cardNumber }}</td>
+                <td>{{ creditCard.dateExpiration }}</td>
+                <td>
+                  <a href="#">
+                    <i class="far fa-edit text-info"></i>
+                  </a>
+                </td>
+                <td>
+                  <a href="#">
+                    <i class="far fa-trash-alt text-danger"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
