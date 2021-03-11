@@ -16,40 +16,123 @@
       <div class="card">
         <div class="card-body">
           <h3 class="titulo">AGREGAR TARJETA</h3>
+
           <form class="needs-validation" autocomplete="off" [formGroup]="formCard" (ngSubmit)="addCard()">
             <div class="form-group mb-3">
               <div class="input-group input-group-lg">
-                <span class="input-group-text"><i class="fas fa-user" [class.text-danger]="getName" ngClass="{'text-danger': getName}"></i></span>
-                <input formControlName="name" type="text" class="form-control" placeholder="Titular*" [class.is-invalid]="getName">
+                <span class="input-group-text">
+                  <i class="fas fa-user"
+                    [class.text-danger]="getName"
+                    [class.text-success]="f.name?.valid">
+                  </i>
+                </span>
+                <input formControlName="name"
+                  type="text"
+                  class="form-control"
+                  placeholder="Titular*"
+                  [class.is-invalid]="getName"
+                  [class.is-valid]="f.name?.valid">
               </div>
               <div *ngIf="getName" class="my-1">
                 <span class="badge bg-danger d-block text-start">Debe ingresar el nombre del titular</span>
               </div>
+              <div *ngIf="f.name.errors?.pattern" class="my-1">
+                <span class="badge bg-danger d-block text-start">Debe ingresar solo letras</span>
+              </div>
             </div>
-            <div class="input-group input-group-lg mb-3">
-              <span class="input-group-text"><i class="fas fa-credit-card"></i></span>
-              <input formControlName="cardNumber" type="text" class="form-control" placeholder="Número de tarjeta">
+
+            <div class="form-group mb-3">
+              <div class="input-group input-group-lg">
+                <span class="input-group-text">
+                  <i class="fas fa-credit-card"
+                    [class.text-danger]="getCardNumber"
+                    [class.text-success]="f.cardNumber?.valid">
+                  </i>
+                </span>
+                <input formControlName="cardNumber"
+                  type="text"
+                  class="form-control"
+                  placeholder="Número de tarjeta"
+                  [class.is-invalid]="getCardNumber"
+                  [class.is-valid]="f.cardNumber?.valid"
+                  maxlength="16">
+              </div>
+              <div *ngIf="getCardNumber" class="my-1">
+                <span class="badge bg-danger d-block text-start">Debe ingresar el número de la tarjeta de crédito</span>
+              </div>
+              <div *ngIf="f.cardNumber.errors?.pattern" class="my-1">
+                <span class="badge bg-danger d-block text-start">Debe ingresar solo números</span>
+              </div>
+              <div *ngIf="f.cardNumber.errors?.minlength" class="my-1">
+                <span class="badge bg-danger d-block text-start">Debe ingresar mínimo {{ f.cardNumber.errors.minlength.requiredLength }} dígitos</span>
+              </div>
+              <div *ngIf="f.cardNumber.errors?.maxlength" class="my-1">
+                <span class="badge bg-danger d-block text-start">Debe ingresar máximo {{ f.cardNumber.errors.maxlength.requiredLength }} dígitos</span>
+              </div>
             </div>
+
             <div class="row">
               <div class="col-lg-7">
-                <div class="input-group input-group-lg mb-3">
-                  <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                  <input formControlName="dateExpiration" type="text" class="form-control" placeholder="MM/YY">
+
+                <div class="form-group mb-3">
+                  <div class="input-group input-group-lg">
+                    <span class="input-group-text">
+                      <i class="far fa-calendar-alt"
+                        [class.text-danger]="getDateExpiration"
+                        [class.text-success]="f.dateExpiration?.valid">
+                      </i>
+                    </span>
+                    <input formControlName="dateExpiration"
+                      type="text"
+                      class="form-control"
+                      placeholder="MM/YY"
+                      [class.is-invalid]="getDateExpiration"
+                      [class.is-valid]="f.dateExpiration?.valid">
+                  </div>
+                  <div *ngIf="getDateExpiration" class="my-1">
+                    <span class="badge bg-danger d-block text-start">Debe ingresar una fecha</span>
+                  </div>
                 </div>
+
               </div>
               <div class="col-lg-5">
-                <div class="input-group input-group-lg mb-3">
-                  <span class="input-group-text"><i class="fas fa-key"></i></span>
-                  <input formControlName="cvv" type="password" class="form-control" placeholder="CVV">
+
+                <div class="form-group mb-3">
+                  <div class="input-group input-group-lg">
+                    <span class="input-group-text">
+                      <i class="fas fa-key"
+                        [class.text-danger]="getCvv"
+                        [class.text-success]="f.cvv?.valid">
+                      </i>
+                    </span>
+                    <input formControlName="cvv"
+                      type="password"
+                      class="form-control"
+                      placeholder="CVV"
+                      [class.is-invalid]="getCvv"
+                      [class.is-valid]="f.cvv?.valid">
+                  </div>
+                  <div *ngIf="getCvv" class="my-1">
+                    <span class="badge bg-danger d-block text-start">Debe ingresar una clave</span>
+                  </div>
                 </div>
+
               </div>
             </div>
+
             <div class="d-grid gap-2">
-              <button class="btn btn-success btn-block" type="submit">
-                <i class="fas fa-database"></i>&nbsp;Aceptar
+              <button class="btn btn-success btn-block"
+                type="submit"
+                [disabled]="formCard.invalid || loading">
+                <i class="fas"
+                  [ngClass]="{'fa-spin fa-sync': loading, 'fa-database': !loading}">
+                </i>
+                <span *ngIf="!loading">&nbsp;Aceptar</span>
+                <span *ngIf="loading">&nbsp;Guardando...</span>
               </button>
             </div>
           </form>
+
         </div>
       </div>
     </div>
