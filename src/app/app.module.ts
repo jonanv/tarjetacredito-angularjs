@@ -9,12 +9,12 @@ import { AppRoutingModule } from './app-routing.module';
 
 // Imports components
 import { AppComponent } from './app.component';
-import { TarjetaCreditoComponent } from './components/tarjeta-credito/tarjeta-credito.component';
+import { CreditCardComponent } from './components/credit-card/credit-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TarjetaCreditoComponent
+    CreditCardComponent
   ],
   imports: [
     BrowserModule,

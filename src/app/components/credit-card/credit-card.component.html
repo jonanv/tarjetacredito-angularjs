@@ -17,7 +17,7 @@
         <div class="card-body">
           <h3 class="titulo">AGREGAR TARJETA</h3>
 
-          <form class="needs-validation" autocomplete="off" [formGroup]="formCard" (ngSubmit)="addCard()">
+          <form class="needs-validation" autocomplete="off" [formGroup]="formCreditCard" (ngSubmit)="addCard()">
             <div class="form-group mb-3">
               <div class="input-group input-group-lg">
                 <span class="input-group-text">
@@ -52,7 +52,7 @@
                 <input formControlName="cardNumber"
                   type="text"
                   class="form-control"
-                  placeholder="Número de tarjeta"
+                  placeholder="Número de tarjeta*"
                   [class.is-invalid]="getCardNumber"
                   [class.is-valid]="f.cardNumber?.valid"
                   maxlength="16">
@@ -85,7 +85,7 @@
                     <input formControlName="dateExpiration"
                       type="text"
                       class="form-control"
-                      placeholder="MM/YY"
+                      placeholder="MM/YY*"
                       [class.is-invalid]="getDateExpiration"
                       [class.is-valid]="f.dateExpiration?.valid">
                   </div>
@@ -108,7 +108,7 @@
                     <input formControlName="cvv"
                       type="password"
                       class="form-control"
-                      placeholder="CVV"
+                      placeholder="CVV*"
                       [class.is-invalid]="getCvv"
                       [class.is-valid]="f.cvv?.valid">
                   </div>
@@ -123,7 +123,7 @@
             <div class="d-grid gap-2">
               <button class="btn btn-success btn-block"
                 type="submit"
-                [disabled]="formCard.invalid || loading">
+                [disabled]="formCreditCard.invalid || loading">
                 <i class="fas"
                   [ngClass]="{'fa-spin fa-sync': loading, 'fa-database': !loading}">
                 </i>

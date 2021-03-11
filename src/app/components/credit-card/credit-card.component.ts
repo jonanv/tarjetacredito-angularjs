@@ -5,11 +5,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CreditCard } from 'src/app/interfaces/credit-card.interface';
 
 @Component({
-  selector: 'app-tarjeta-credito',
-  templateUrl: './tarjeta-credito.component.html',
-  styleUrls: ['./tarjeta-credito.component.css']
+  selector: 'app-credit-card',
+  templateUrl: './credit-card.component.html',
+  styleUrls: ['./credit-card.component.css']
 })
-export class TarjetaCreditoComponent implements OnInit {
+export class CreditCardComponent implements OnInit {
 
   creditCards: CreditCard[] = [
     {
@@ -25,7 +25,7 @@ export class TarjetaCreditoComponent implements OnInit {
       cvv: '123'
     }
   ];
-  formCard: FormGroup;
+  formCreditCard: FormGroup;
   loading: boolean = false;
 
   constructor(
@@ -39,7 +39,7 @@ export class TarjetaCreditoComponent implements OnInit {
   }
 
   createForm() {
-    this.formCard = this.formBuilder.group({
+    this.formCreditCard = this.formBuilder.group({
       name: ['', [
         Validators.required,
         Validators.pattern('[A-Za-zá-úÁ-Ú ]*')
@@ -65,27 +65,27 @@ export class TarjetaCreditoComponent implements OnInit {
   }
 
   get f() {
-    return this.formCard.controls;
+    return this.formCreditCard.controls;
   }
 
   get getName(): boolean {
-    return this.formCard.get('name').invalid && this.formCard.get('name').touched;
+    return this.formCreditCard.get('name').invalid && this.formCreditCard.get('name').touched;
   }
 
   get getCardNumber(): boolean {
-    return this.formCard.get('cardNumber').invalid && this.formCard.get('cardNumber').touched;
+    return this.formCreditCard.get('cardNumber').invalid && this.formCreditCard.get('cardNumber').touched;
   }
 
   get getDateExpiration(): boolean {
-    return this.formCard.get('dateExpiration').invalid && this.formCard.get('dateExpiration').touched;
+    return this.formCreditCard.get('dateExpiration').invalid && this.formCreditCard.get('dateExpiration').touched;
   }
 
   get getCvv(): boolean {
-    return this.formCard.get('cvv').invalid && this.formCard.get('cvv').touched;
+    return this.formCreditCard.get('cvv').invalid && this.formCreditCard.get('cvv').touched;
   }
 
   addCard() {
-    if (this.formCard.invalid) {
+    if (this.formCreditCard.invalid) {
       Object.values(this.f)
         .forEach(control => {
           control.markAllAsTouched();
@@ -98,12 +98,12 @@ export class TarjetaCreditoComponent implements OnInit {
       }, 1000);
 
     }
-    console.log(this.formCard);
+    console.log(this.formCreditCard);
     // const card: CreditCard = {
-    //   name: this.formCard.get('name').value,
-    //   cardNumber: this.formCard.get('cardNumber').value,
-    //   dateExpiration: this.formCard.get('dateExpiration').value,
-    //   cvv: this.formCard.get('cvv').value
+    //   name: this.formCreditCard.get('name').value,
+    //   cardNumber: this.formCreditCard.get('cardNumber').value,
+    //   dateExpiration: this.formCreditCard.get('dateExpiration').value,
+    //   cvv: this.formCreditCard.get('cvv').value
     // }
     // this.creditCards.push(card);
   }
