@@ -15,26 +15,26 @@
       <div class="card">
         <div class="card-body">
           <h3 class="titulo">AGREGAR TARJETA</h3>
-          <form>
+          <form class="needs-validation" autocomplete="off" [formGroup]="formCard" (ngSubmit)="addCard()">
             <div class="input-group input-group-lg mb-3">
               <span class="input-group-text"><i class="fas fa-user"></i></span>
-              <input type="text" class="form-control" placeholder="Titular">
+              <input formControlName="name" type="text" class="form-control" placeholder="Titular">
             </div>
             <div class="input-group input-group-lg mb-3">
               <span class="input-group-text"><i class="fas fa-credit-card"></i></span>
-              <input type="text" class="form-control" placeholder="Número de tarjeta">
+              <input formControlName="cardNumber" type="text" class="form-control" placeholder="Número de tarjeta">
             </div>
             <div class="row">
               <div class="col-lg-7">
                 <div class="input-group input-group-lg mb-3">
                   <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                  <input type="text" class="form-control" placeholder="MM/YY">
+                  <input formControlName="dateExpiration" type="text" class="form-control" placeholder="MM/YY">
                 </div>
               </div>
               <div class="col-lg-5">
                 <div class="input-group input-group-lg mb-3">
                   <span class="input-group-text"><i class="fas fa-key"></i></span>
-                  <input type="password" class="form-control" placeholder="CVV">
+                  <input formControlName="cvv" type="password" class="form-control" placeholder="CVV">
                 </div>
               </div>
             </div>
