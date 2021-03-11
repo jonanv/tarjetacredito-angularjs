@@ -51,13 +51,20 @@ export class TarjetaCreditoComponent implements OnInit {
         Validators.required
       ]],
       cvv: ['', [
-        Validators.required
+        Validators.required,
+        Validators.pattern('^[0-9]+'),
+        Validators.maxLength(3),
+        Validators.minLength(3)
       ]]
     });
   }
 
   get f() {
     return this.formCard.controls;
+  }
+
+  get getName(): boolean {
+    return this.formCard.get('name').invalid && this.formCard.get('name').touched;
   }
 
   addCard() {
@@ -67,7 +74,7 @@ export class TarjetaCreditoComponent implements OnInit {
           control.markAllAsTouched();
         });
     }
-    console.log(this.f);
+    console.log(this.formCard.value);
   }
 
 }

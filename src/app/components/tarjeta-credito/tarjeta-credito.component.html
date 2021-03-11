@@ -10,15 +10,21 @@
     </div>
   </div>
 
+  <!-- TODO: Crear componentes independientes -->
   <div class="row mt-4">
     <div class="col-lg-6">
       <div class="card">
         <div class="card-body">
           <h3 class="titulo">AGREGAR TARJETA</h3>
           <form class="needs-validation" autocomplete="off" [formGroup]="formCard" (ngSubmit)="addCard()">
-            <div class="input-group input-group-lg mb-3">
-              <span class="input-group-text"><i class="fas fa-user"></i></span>
-              <input formControlName="name" type="text" class="form-control" placeholder="Titular">
+            <div class="form-group mb-3">
+              <div class="input-group input-group-lg">
+                <span class="input-group-text"><i class="fas fa-user" [class.text-danger]="getName" ngClass="{'text-danger': getName}"></i></span>
+                <input formControlName="name" type="text" class="form-control" placeholder="Titular*" [class.is-invalid]="getName">
+              </div>
+              <div *ngIf="getName" class="my-1">
+                <span class="badge bg-danger d-block text-start">Debe ingresar el nombre del titular</span>
+              </div>
             </div>
             <div class="input-group input-group-lg mb-3">
               <span class="input-group-text"><i class="fas fa-credit-card"></i></span>
