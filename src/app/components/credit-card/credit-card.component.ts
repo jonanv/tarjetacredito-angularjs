@@ -86,7 +86,7 @@ export class CreditCardComponent implements OnInit {
     return this.formCreditCard.get('cvv').invalid && this.formCreditCard.get('cvv').touched;
   }
 
-  addCard() {
+  public addCard() {
     if (this.formCreditCard.invalid) {
       Object.values(this.f)
         .forEach(control => {
@@ -101,14 +101,19 @@ export class CreditCardComponent implements OnInit {
 
     }
     console.log(this.formCreditCard);
-    // const card: CreditCard = {
-    //   name: this.formCreditCard.get('name').value,
-    //   cardNumber: this.formCreditCard.get('cardNumber').value,
-    //   dateExpiration: this.formCreditCard.get('dateExpiration').value,
-    //   cvv: this.formCreditCard.get('cvv').value
-    // }
-    // this.creditCards.push(card);
+    const card: CreditCard = {
+      name: this.formCreditCard.get('name').value,
+      cardNumber: this.formCreditCard.get('cardNumber').value,
+      dateExpiration: this.formCreditCard.get('dateExpiration').value,
+      cvv: this.formCreditCard.get('cvv').value
+    }
+    this.creditCards.push(card);
     this.toastrService.success('La tarjeta fue registrada con éxito', 'Tarjeta registrada!');
+  }
+
+  public removeCreditCard(index: number) {
+    this.creditCards.splice(index, 1);
+    this.toastrService.error('La tarjeta fue eliminada con éxito', 'Tarjeta eliminada!');
   }
 
 }

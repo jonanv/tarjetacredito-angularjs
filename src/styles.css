@@ -27,3 +27,6 @@ span i.text-success::before {
   opacity: .8;
 }
 
+.a_link {
+  cursor: pointer;
+}

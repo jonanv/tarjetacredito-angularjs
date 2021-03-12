@@ -151,17 +151,17 @@
               </th>
             </thead>
             <tbody>
-              <tr *ngFor="let creditCard of creditCards">
+              <tr *ngFor="let creditCard of creditCards, let i = index">
                 <td>{{ creditCard.name }}</td>
                 <td>{{ creditCard.cardNumber }}</td>
                 <td>{{ creditCard.dateExpiration }}</td>
                 <td>
-                  <a href="#">
+                  <a class="a_link">
                     <i class="far fa-edit text-info"></i>
                   </a>
                 </td>
                 <td>
-                  <a href="#">
+                  <a class="a_link" (click)="removeCreditCard(i)">
                     <i class="far fa-trash-alt text-danger"></i>
                   </a>
                 </td>
