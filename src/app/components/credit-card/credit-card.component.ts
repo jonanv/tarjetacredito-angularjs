@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 // Imports forms
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { CreditCard } from 'src/app/interfaces/credit-card.interface';
 
 @Component({
@@ -29,7 +30,8 @@ export class CreditCardComponent implements OnInit {
   loading: boolean = false;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toastrService: ToastrService
   ) {
 
   }
@@ -106,6 +108,7 @@ export class CreditCardComponent implements OnInit {
     //   cvv: this.formCreditCard.get('cvv').value
     // }
     // this.creditCards.push(card);
+    this.toastrService.success('La tarjeta fue registrada con éxito', 'Tarjeta registrada!');
   }
 
 }

@@ -7,6 +7,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Import routing
 import { AppRoutingModule } from './app-routing.module';
 
+// Imports
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
 // Imports components
 import { AppComponent } from './app.component';
 import { CreditCardComponent } from './components/credit-card/credit-card.component';
@@ -20,7 +24,9 @@ import { CreditCardComponent } from './components/credit-card/credit-card.compon
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,  // required animations module
+    ToastrModule.forRoot(),   // ToastrModule added
   ],
   providers: [],
   bootstrap: [AppComponent]
