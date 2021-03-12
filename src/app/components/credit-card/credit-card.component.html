@@ -110,7 +110,8 @@
                       class="form-control"
                       placeholder="CVV*"
                       [class.is-invalid]="getCvv"
-                      [class.is-valid]="f.cvv?.valid">
+                      [class.is-valid]="f.cvv?.valid"
+                      maxlength="3">
                   </div>
                   <div *ngIf="getCvv" class="my-1">
                     <span class="badge bg-danger d-block text-start">Debe ingresar una clave</span>

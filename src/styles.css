@@ -9,3 +9,21 @@ body {
   font-family: 'Play', sans-serif;
   text-align: center;
 }
+
+.is-invalid {
+  background-color: rgba(255, 0, 0, .1) !important;
+}
+
+.is-valid {
+  background-color: rgba(0, 255, 0, .1) !important;
+}
+
+span.badge {
+  opacity: .8;
+}
+
+span i.text-danger::before,
+span i.text-success::before {
+  opacity: .8;
+}
+
