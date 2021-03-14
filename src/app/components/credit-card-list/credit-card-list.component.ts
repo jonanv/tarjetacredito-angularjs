@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
+// Imports
+import { ToastrService } from 'ngx-toastr';
+import { CreditCard } from '../../interfaces/credit-card.interface';
 
 @Component({
   selector: 'app-credit-card-list',
@@ -7,9 +11,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreditCardListComponent implements OnInit {
 
-  constructor() { }
+  @Input() creditCards: CreditCard[];
+
+  constructor(
+    private toastrService: ToastrService
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  public removeCreditCard(index: number) {
+    this.creditCards.splice(index, 1);
+    this.toastrService.error('La tarjeta fue eliminada con éxito', 'Tarjeta eliminada!');
   }
 
 }

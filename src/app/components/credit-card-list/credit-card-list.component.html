@@ -1,1 +1,25 @@
-<p>credit-card-list works!</p>
+<h3 class="titulo">LISTA DE TARJETAS</h3>
+<table class="table">
+  <thead>
+    <th>
+      <tr></tr>
+    </th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let creditCard of creditCards, let i = index">
+      <td>{{ creditCard.name }}</td>
+      <td>{{ creditCard.cardNumber }}</td>
+      <td>{{ creditCard.dateExpiration }}</td>
+      <td>
+        <a class="a_link">
+          <i class="far fa-edit text-info"></i>
+        </a>
+      </td>
+      <td>
+        <a class="a_link" (click)="removeCreditCard(i)">
+          <i class="far fa-trash-alt text-danger"></i>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
