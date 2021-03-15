@@ -1,9 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 // Imports forms
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CreditCard } from 'src/app/interfaces/credit-card.interface';
+import { CreditCardService } from '../../services/credit-card.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-credit-card-form',
@@ -12,12 +14,15 @@ import { CreditCard } from 'src/app/interfaces/credit-card.interface';
 })
 export class CreditCardFormComponent implements OnInit {
 
-  formCreditCard: FormGroup;
-  loading: boolean = false;
+  private creditCards: CreditCard[];
+  @Output() creditCardsEmitter: EventEmitter<CreditCard[]> = new EventEmitter();
+  public formCreditCard: FormGroup;
+  public loading: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private creditCardService: CreditCardService
   ) { }
 
   ngOnInit(): void {
@@ -70,7 +75,7 @@ export class CreditCardFormComponent implements OnInit {
     return this.formCreditCard.get('cvv').invalid && this.formCreditCard.get('cvv').touched;
   }
 
-  public addCard() {
+  public addCard(): void {
     if (this.formCreditCard.invalid) {
       Object.values(this.f)
         .forEach(control => {
@@ -79,19 +84,40 @@ export class CreditCardFormComponent implements OnInit {
     }
     else {
       this.loading = true;
-      setTimeout(() => {
-        const card: CreditCard = {
-          titular: this.formCreditCard.get('titular').value,
-          numeroTarjeta: this.formCreditCard.get('numeroTarjeta').value,
-          fechaExpiracion: this.formCreditCard.get('fechaExpiracion').value,
-          cvv: this.formCreditCard.get('cvv').value
-        }
-        this.formCreditCard.reset();
-        this.toastrService.success('La tarjeta fue registrada con éxito', 'Tarjeta registrada!');
-        this.loading = false;
-      }, 1000);
+
+      const creditCard: CreditCard = {
+        titular: this.formCreditCard.get('titular').value,
+        numeroTarjeta: this.formCreditCard.get('numeroTarjeta').value,
+        fechaExpiracion: this.formCreditCard.get('fechaExpiracion').value,
+        cvv: this.formCreditCard.get('cvv').value
+      }
+
+      this.creditCardService.saveCreditCard(creditCard)
+        .pipe(first())
+        .subscribe((response: CreditCard) => {
+          console.log(response);
+          if (response) {
+            this.toastrService.success('La tarjeta fue registrada con éxito', 'Tarjeta registrada!');
+          }
+          this.formCreditCard.reset();
+          this.getCreditCards();
+          this.loading = false;
+        }, (error) => {
+          this.toastrService.error('Ha ocurrido un error al guardar la tajeta!', 'Error!');
+          console.error(error);
+        });
     }
-    console.log(this.formCreditCard);
+  }
+
+  private getCreditCards(): void {
+    this.creditCardService.getCreditCards()
+      .pipe(first())
+      .subscribe((response: CreditCard[]) => {
+        this.creditCards = response;
+        this.creditCardsEmitter.emit(this.creditCards);
+      }, (error) => {
+        console.error(error);
+      });
   }
 
 }

@@ -17,7 +17,9 @@
       <div class="card">
         <div class="card-body">
 
-          <app-credit-card-form></app-credit-card-form>
+          <app-credit-card-form
+            (creditCardsEmitter)="processCreditCardsEmitter($event)">
+          </app-credit-card-form>
 
         </div>
       </div>
@@ -27,7 +29,9 @@
       <div class="card">
         <div class="card-body">
 
-          <app-credit-card-list></app-credit-card-list>
+          <app-credit-card-list
+            [creditCards]="creditCards">
+          </app-credit-card-list>
 
         </div>
       </div>

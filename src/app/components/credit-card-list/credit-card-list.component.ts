@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 // Imports
 import { ToastrService } from 'ngx-toastr';
@@ -13,7 +13,7 @@ import { first } from 'rxjs/operators';
 })
 export class CreditCardListComponent implements OnInit {
 
-  public creditCards: CreditCard[] = [];
+  @Input() creditCards: CreditCard[];
 
   constructor(
     private toastrService: ToastrService,
@@ -24,7 +24,8 @@ export class CreditCardListComponent implements OnInit {
     this.getCreditCards();
   }
 
-  private getCreditCards() {
+  // TODO: Revisar el metodo getCreditCards para que se llame desde un solo lado
+  private getCreditCards(): void {
     this.creditCardService.getCreditCards()
       .pipe(first())
       .subscribe((response: CreditCard[]) => {
@@ -34,10 +35,10 @@ export class CreditCardListComponent implements OnInit {
       });
   }
 
-  public removeCreditCard(index: number) {
+  public removeCreditCard(index: number): void {
     this.creditCardService.deleteCreditCard(index)
       .pipe(first())
-      .subscribe((response) => {
+      .subscribe((response: any) => {
         if (response.message) {
           this.toastrService.error(response.message, 'Tarjeta eliminada!');
           this.getCreditCards();

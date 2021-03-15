@@ -18,16 +18,23 @@ export class CreditCardService {
     private http: HttpClient
   ) { }
 
-  getCreditCards(): Observable<any> {
+  public getCreditCards(): Observable<any> {
     return this.http.get(this.url + this.api)
       .pipe(map((response: CreditCard[]) => {
         return response;
       }));
   }
 
-  deleteCreditCard(id: number): Observable<any> {
+  public deleteCreditCard(id: number): Observable<any> {
     return this.http.delete(this.url + this.api +  id)
       .pipe(map((response) => {
+        return response;
+      }));
+  }
+
+  public saveCreditCard(creditCard: CreditCard): Observable<any> {
+    return this.http.post(this.url + this.api, creditCard)
+      .pipe(map(response => {
         return response;
       }));
   }
