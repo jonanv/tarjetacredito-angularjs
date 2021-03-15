@@ -6,7 +6,7 @@
     </th>
   </thead>
   <tbody>
-    <tr *ngFor="let creditCard of creditCards, let i = index">
+    <tr *ngFor="let creditCard of creditCards">
       <td>{{ creditCard.titular }}</td>
       <td>{{ creditCard.numeroTarjeta }}</td>
       <td>{{ creditCard.fechaExpiracion }}</td>
@@ -16,7 +16,7 @@
         </a>
       </td>
       <td>
-        <a class="a_link" (click)="removeCreditCard(i)">
+        <a class="a_link" (click)="removeCreditCard(creditCard.id)">
           <i class="far fa-trash-alt text-danger"></i>
         </a>
       </td>

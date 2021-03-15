@@ -12,7 +12,6 @@ import { CreditCard } from 'src/app/interfaces/credit-card.interface';
 })
 export class CreditCardFormComponent implements OnInit {
 
-  @Input() creditCards: CreditCard[];
   formCreditCard: FormGroup;
   loading: boolean = false;
 
@@ -87,7 +86,6 @@ export class CreditCardFormComponent implements OnInit {
           fechaExpiracion: this.formCreditCard.get('fechaExpiracion').value,
           cvv: this.formCreditCard.get('cvv').value
         }
-        this.creditCards.push(card);
         this.formCreditCard.reset();
         this.toastrService.success('La tarjeta fue registrada con éxito', 'Tarjeta registrada!');
         this.loading = false;

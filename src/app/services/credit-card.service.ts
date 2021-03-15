@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CreditCard } from '../interfaces/credit-card.interface';
 import { map } from 'rxjs/operators'
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,14 +18,16 @@ export class CreditCardService {
     private http: HttpClient
   ) { }
 
-  private getQuery() {
-    const url: string = `${ this.url }${ this.api }`;
-    return this.http.get(url);
+  getCreditCards(): Observable<any> {
+    return this.http.get(this.url + this.api)
+      .pipe(map((response: CreditCard[]) => {
+        return response;
+      }));
   }
 
-  getCreditCards() {
-    return this.getQuery()
-      .pipe(map((response: CreditCard[]) => {
+  deleteCreditCard(id: number): Observable<any> {
+    return this.http.delete(this.url + this.api +  id)
+      .pipe(map((response) => {
         return response;
       }));
   }
