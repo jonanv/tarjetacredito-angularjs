@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-// Imports forms
+// Imports
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http'
 
 // Import routing
 import { AppRoutingModule } from './app-routing.module';
@@ -31,6 +32,7 @@ import { CreditCardListComponent } from './components/credit-card-list/credit-ca
     ReactiveFormsModule,
     BrowserAnimationsModule,  // required animations module
     ToastrModule.forRoot(),   // ToastrModule added
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

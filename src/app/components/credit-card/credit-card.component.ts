@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 // Imports
 import { CreditCard } from 'src/app/interfaces/credit-card.interface';
+import { CreditCardService } from '../../services/credit-card.service';
+import { first } from "rxjs/operators";
 
 @Component({
   selector: 'app-credit-card',
@@ -10,24 +12,24 @@ import { CreditCard } from 'src/app/interfaces/credit-card.interface';
 })
 export class CreditCardComponent implements OnInit {
 
-  public creditCards: CreditCard[] = [
-    {
-      name: 'Juan Perez',
-      cardNumber: '432424344',
-      dateExpiration: '11/23',
-      cvv: '123'
-    },
-    {
-      name: 'Juan Perez',
-      cardNumber: '432424344',
-      dateExpiration: '11/23',
-      cvv: '123'
-    }
-  ];
+  public creditCards: CreditCard[] = [];
 
-  constructor() { }
+  constructor(
+    private creditCardService: CreditCardService
+  ) { }
 
   ngOnInit(): void {
+    this.getCreditCards();
+  }
+
+  private getCreditCards() {
+    this.creditCardService.getCreditCards()
+      .pipe(first())
+      .subscribe((response: CreditCard[]) => {
+        this.creditCards = response;
+      }, (error) => {
+        console.error(error);
+      });
   }
 
 }

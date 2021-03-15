@@ -81,19 +81,19 @@ export class CreditCardFormComponent implements OnInit {
     else {
       this.loading = true;
       setTimeout(() => {
+        const card: CreditCard = {
+          name: this.formCreditCard.get('name').value,
+          cardNumber: this.formCreditCard.get('cardNumber').value,
+          dateExpiration: this.formCreditCard.get('dateExpiration').value,
+          cvv: this.formCreditCard.get('cvv').value
+        }
+        this.creditCards.push(card);
+        this.formCreditCard.reset();
+        this.toastrService.success('La tarjeta fue registrada con éxito', 'Tarjeta registrada!');
         this.loading = false;
       }, 1000);
-
     }
     console.log(this.formCreditCard);
-    const card: CreditCard = {
-      name: this.formCreditCard.get('name').value,
-      cardNumber: this.formCreditCard.get('cardNumber').value,
-      dateExpiration: this.formCreditCard.get('dateExpiration').value,
-      cvv: this.formCreditCard.get('cvv').value
-    }
-    this.creditCards.push(card);
-    this.toastrService.success('La tarjeta fue registrada con éxito', 'Tarjeta registrada!');
   }
 
 }
