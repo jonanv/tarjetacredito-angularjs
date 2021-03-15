@@ -7,9 +7,9 @@
   </thead>
   <tbody>
     <tr *ngFor="let creditCard of creditCards, let i = index">
-      <td>{{ creditCard.name }}</td>
-      <td>{{ creditCard.cardNumber }}</td>
-      <td>{{ creditCard.dateExpiration }}</td>
+      <td>{{ creditCard.titular }}</td>
+      <td>{{ creditCard.numeroTarjeta }}</td>
+      <td>{{ creditCard.fechaExpiracion }}</td>
       <td>
         <a class="a_link">
           <i class="far fa-edit text-info"></i>

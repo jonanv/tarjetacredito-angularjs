@@ -27,17 +27,17 @@ export class CreditCardFormComponent implements OnInit {
 
   private createForm() {
     this.formCreditCard = this.formBuilder.group({
-      name: ['', [
+      titular: ['', [
         Validators.required,
         Validators.pattern('[A-Za-zá-úÁ-Ú ]*')
       ]],
-      cardNumber: ['', [
+      numeroTarjeta: ['', [
         Validators.required,
         Validators.pattern('^[0-9]+'),
         Validators.maxLength(16),
         Validators.minLength(16)
       ]],
-      dateExpiration: ['', [
+      fechaExpiracion: ['', [
         Validators.required,
         Validators.maxLength(5),
         Validators.minLength(5)
@@ -55,16 +55,16 @@ export class CreditCardFormComponent implements OnInit {
     return this.formCreditCard.controls;
   }
 
-  public get getName(): boolean {
-    return this.formCreditCard.get('name').invalid && this.formCreditCard.get('name').touched;
+  public get getTitular(): boolean {
+    return this.formCreditCard.get('titular').invalid && this.formCreditCard.get('titular').touched;
   }
 
-  public get getCardNumber(): boolean {
-    return this.formCreditCard.get('cardNumber').invalid && this.formCreditCard.get('cardNumber').touched;
+  public get getNumeroTarjeta(): boolean {
+    return this.formCreditCard.get('numeroTarjeta').invalid && this.formCreditCard.get('numeroTarjeta').touched;
   }
 
-  public get getDateExpiration(): boolean {
-    return this.formCreditCard.get('dateExpiration').invalid && this.formCreditCard.get('dateExpiration').touched;
+  public get getFechaExpiracion(): boolean {
+    return this.formCreditCard.get('fechaExpiracion').invalid && this.formCreditCard.get('fechaExpiracion').touched;
   }
 
   public get getCvv(): boolean {
@@ -82,9 +82,9 @@ export class CreditCardFormComponent implements OnInit {
       this.loading = true;
       setTimeout(() => {
         const card: CreditCard = {
-          name: this.formCreditCard.get('name').value,
-          cardNumber: this.formCreditCard.get('cardNumber').value,
-          dateExpiration: this.formCreditCard.get('dateExpiration').value,
+          titular: this.formCreditCard.get('titular').value,
+          numeroTarjeta: this.formCreditCard.get('numeroTarjeta').value,
+          fechaExpiracion: this.formCreditCard.get('fechaExpiracion').value,
           cvv: this.formCreditCard.get('cvv').value
         }
         this.creditCards.push(card);

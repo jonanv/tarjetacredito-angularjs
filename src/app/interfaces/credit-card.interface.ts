@@ -1,6 +1,7 @@
 export interface CreditCard {
-  name: string;
-  cardNumber: string;
-  dateExpiration: string;
+  // id: number;
+  titular: string;
+  numeroTarjeta: string;
+  fechaExpiracion: string;
   cvv: string;
 }

@@ -5,21 +5,21 @@
     <div class="input-group input-group-lg">
       <span class="input-group-text">
         <i class="fas fa-user"
-          [class.text-danger]="getName"
-          [class.text-success]="f.name?.valid">
+          [class.text-danger]="getTitular"
+          [class.text-success]="f.titular?.valid">
         </i>
       </span>
-      <input formControlName="name"
+      <input formControlName="titular"
         type="text"
         class="form-control"
         placeholder="Titular*"
-        [class.is-invalid]="getName"
-        [class.is-valid]="f.name?.valid">
+        [class.is-invalid]="getTitular"
+        [class.is-valid]="f.titular?.valid">
     </div>
-    <div *ngIf="getName" class="my-1">
+    <div *ngIf="getTitular" class="my-1">
       <span class="badge bg-danger d-block text-start">Debe ingresar el nombre del titular</span>
     </div>
-    <div *ngIf="f.name.errors?.pattern" class="my-1">
+    <div *ngIf="f.titular.errors?.pattern" class="my-1">
       <span class="badge bg-danger d-block text-start">Debe ingresar solo letras</span>
     </div>
   </div>
@@ -28,29 +28,29 @@
     <div class="input-group input-group-lg">
       <span class="input-group-text">
         <i class="fas fa-credit-card"
-          [class.text-danger]="getCardNumber"
-          [class.text-success]="f.cardNumber?.valid">
+          [class.text-danger]="getNumeroTarjeta"
+          [class.text-success]="f.numeroTarjeta?.valid">
         </i>
       </span>
-      <input formControlName="cardNumber"
+      <input formControlName="numeroTarjeta"
         type="text"
         class="form-control"
         placeholder="Número de tarjeta*"
-        [class.is-invalid]="getCardNumber"
-        [class.is-valid]="f.cardNumber?.valid"
+        [class.is-invalid]="getNumeroTarjeta"
+        [class.is-valid]="f.numeroTarjeta?.valid"
         maxlength="16">
     </div>
-    <div *ngIf="getCardNumber" class="my-1">
+    <div *ngIf="getNumeroTarjeta" class="my-1">
       <span class="badge bg-danger d-block text-start">Debe ingresar el número de la tarjeta de crédito</span>
     </div>
-    <div *ngIf="f.cardNumber.errors?.pattern" class="my-1">
+    <div *ngIf="f.numeroTarjeta.errors?.pattern" class="my-1">
       <span class="badge bg-danger d-block text-start">Debe ingresar solo números</span>
     </div>
-    <div *ngIf="f.cardNumber.errors?.minlength" class="my-1">
-      <span class="badge bg-danger d-block text-start">Debe ingresar mínimo {{ f.cardNumber.errors.minlength.requiredLength }} dígitos</span>
+    <div *ngIf="f.numeroTarjeta.errors?.minlength" class="my-1">
+      <span class="badge bg-danger d-block text-start">Debe ingresar mínimo {{ f.numeroTarjeta.errors.minlength.requiredLength }} dígitos</span>
     </div>
-    <div *ngIf="f.cardNumber.errors?.maxlength" class="my-1">
-      <span class="badge bg-danger d-block text-start">Debe ingresar máximo {{ f.cardNumber.errors.maxlength.requiredLength }} dígitos</span>
+    <div *ngIf="f.numeroTarjeta.errors?.maxlength" class="my-1">
+      <span class="badge bg-danger d-block text-start">Debe ingresar máximo {{ f.numeroTarjeta.errors.maxlength.requiredLength }} dígitos</span>
     </div>
   </div>
 
@@ -61,19 +61,19 @@
         <div class="input-group input-group-lg">
           <span class="input-group-text">
             <i class="far fa-calendar-alt"
-              [class.text-danger]="getDateExpiration"
-              [class.text-success]="f.dateExpiration?.valid">
+              [class.text-danger]="getFechaExpiracion"
+              [class.text-success]="f.fechaExpiracion?.valid">
             </i>
           </span>
-          <input formControlName="dateExpiration"
+          <input formControlName="fechaExpiracion"
             type="text"
             class="form-control"
             placeholder="MM/YY*"
-            [class.is-invalid]="getDateExpiration"
-            [class.is-valid]="f.dateExpiration?.valid"
+            [class.is-invalid]="getFechaExpiracion"
+            [class.is-valid]="f.fechaExpiracion?.valid"
             maxlength="5">
         </div>
-        <div *ngIf="getDateExpiration" class="my-1">
+        <div *ngIf="getFechaExpiracion" class="my-1">
           <span class="badge bg-danger d-block text-start">Debe ingresar una fecha</span>
         </div>
       </div>
