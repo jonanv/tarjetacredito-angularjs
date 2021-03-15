@@ -75,6 +75,16 @@ export class CreditCardFormComponent implements OnInit {
     return this.formCreditCard.get('cvv').invalid && this.formCreditCard.get('cvv').touched;
   }
 
+  private createCreditCard(): CreditCard {
+    const creditCard: CreditCard = {
+      titular: this.formCreditCard.get('titular').value,
+      numeroTarjeta: this.formCreditCard.get('numeroTarjeta').value,
+      fechaExpiracion: this.formCreditCard.get('fechaExpiracion').value,
+      cvv: this.formCreditCard.get('cvv').value
+    }
+    return creditCard;
+  }
+
   public addCard(): void {
     if (this.formCreditCard.invalid) {
       Object.values(this.f)
@@ -84,18 +94,10 @@ export class CreditCardFormComponent implements OnInit {
     }
     else {
       this.loading = true;
-
-      const creditCard: CreditCard = {
-        titular: this.formCreditCard.get('titular').value,
-        numeroTarjeta: this.formCreditCard.get('numeroTarjeta').value,
-        fechaExpiracion: this.formCreditCard.get('fechaExpiracion').value,
-        cvv: this.formCreditCard.get('cvv').value
-      }
-
+      let creditCard = this.createCreditCard();
       this.creditCardService.saveCreditCard(creditCard)
         .pipe(first())
         .subscribe((response: CreditCard) => {
-          console.log(response);
           if (response) {
             this.toastrService.success('La tarjeta fue registrada con éxito', 'Tarjeta registrada!');
           }
