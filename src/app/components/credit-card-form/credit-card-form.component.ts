@@ -115,6 +115,7 @@ export class CreditCardFormComponent implements OnInit {
           }, (error) => {
             this.toastrService.error('Ha ocurrido un error al guardar la tajeta!', 'Error!');
             console.error(error);
+            this.loading = false;
           });
       } else {
         // Editar tarjeta
@@ -131,7 +132,9 @@ export class CreditCardFormComponent implements OnInit {
               this.loading = false;
             }
           }, (error) => {
+            this.toastrService.error('Ha ocurrido un error al editar la tajeta!', 'Error!');
             console.error(error);
+            this.loading = false;
           });
       }
     }

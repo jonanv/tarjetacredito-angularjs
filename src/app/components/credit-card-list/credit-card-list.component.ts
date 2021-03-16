@@ -56,7 +56,6 @@ export class CreditCardListComponent implements OnInit {
   }
 
   public updateCreditCard(creditCard: CreditCard): void {
-    console.log(creditCard);
     this.actionEmitter.emit('Id: ' + creditCard['id'] + ' - Editar');
     this.idEmitter.emit(creditCard['id']);
     this.formCreditCard.patchValue({
