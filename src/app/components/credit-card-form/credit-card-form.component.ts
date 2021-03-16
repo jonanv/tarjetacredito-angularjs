@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 // Imports forms
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -18,6 +18,9 @@ export class CreditCardFormComponent implements OnInit {
   @Output() creditCardsEmitter: EventEmitter<CreditCard[]> = new EventEmitter();
   public formCreditCard: FormGroup;
   public loading: boolean = false;
+  @Input() id: number | undefined;
+  @Input() action: string;
+  @Output() formCreditCardEmitter: EventEmitter<FormGroup> = new EventEmitter();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -27,6 +30,8 @@ export class CreditCardFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+    this.action = 'Agregar';
+    this.formCreditCardEmitter.emit(this.formCreditCard);
   }
 
   private createForm() {
@@ -85,7 +90,7 @@ export class CreditCardFormComponent implements OnInit {
     return creditCard;
   }
 
-  public addCard(): void {
+  public saveCreditCard(): void {
     if (this.formCreditCard.invalid) {
       Object.values(this.f)
         .forEach(control => {
@@ -95,19 +100,40 @@ export class CreditCardFormComponent implements OnInit {
     else {
       this.loading = true;
       let creditCard = this.createCreditCard();
-      this.creditCardService.saveCreditCard(creditCard)
-        .pipe(first())
-        .subscribe((response: CreditCard) => {
-          if (response) {
-            this.toastrService.success('La tarjeta fue registrada con éxito', 'Tarjeta registrada!');
-          }
-          this.formCreditCard.reset();
-          this.getCreditCards();
-          this.loading = false;
-        }, (error) => {
-          this.toastrService.error('Ha ocurrido un error al guardar la tajeta!', 'Error!');
-          console.error(error);
-        });
+
+      if (this.id === undefined) {
+        // Agregar tarjeta
+        this.creditCardService.saveCreditCard(creditCard)
+          .pipe(first())
+          .subscribe((response: CreditCard) => {
+            if (response) {
+              this.toastrService.success('La tarjeta fue registrada con éxito', 'Tarjeta registrada!');
+            }
+            this.formCreditCard.reset();
+            this.getCreditCards();
+            this.loading = false;
+          }, (error) => {
+            this.toastrService.error('Ha ocurrido un error al guardar la tajeta!', 'Error!');
+            console.error(error);
+          });
+      } else {
+        // Editar tarjeta
+        creditCard['id'] = this.id;
+        this.creditCardService.updateCreditCard(this.id, creditCard)
+          .pipe(first())
+          .subscribe((response: any) => {
+            if (response.message) {
+              this.toastrService.info(response.message, 'Tarjeta actualizada!');
+              this.getCreditCards();
+              this.formCreditCard.reset();
+              this.action = 'Agregar';
+              this.id = undefined;
+              this.loading = false;
+            }
+          }, (error) => {
+            console.error(error);
+          });
+      }
     }
   }
 

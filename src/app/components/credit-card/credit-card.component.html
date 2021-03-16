@@ -10,7 +10,6 @@
     </div>
   </div>
 
-  <!-- TODO: Crear componentes independientes -->
   <!-- TODO: Agregar animated CSS -->
   <div class="row mt-4">
     <div class="col-lg-6">
@@ -18,7 +17,10 @@
         <div class="card-body">
 
           <app-credit-card-form
-            (creditCardsEmitter)="processCreditCardsEmitter($event)">
+            (creditCardsEmitter)="processCreditCardsEmitter($event)"
+            [action]="action"
+            [id]="id"
+            (formCreditCardEmitter)="processFormCreditCardEmitter($event)">
           </app-credit-card-form>
 
         </div>
@@ -30,7 +32,10 @@
         <div class="card-body">
 
           <app-credit-card-list
-            [creditCards]="creditCards">
+            [creditCards]="creditCards"
+            (actionEmitter)="processActionEmitter($event)"
+            (idEmitter)="processIdEmitter($event)"
+            [formCreditCard]="formCreditCard">
           </app-credit-card-list>
 
         </div>

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 // Imports
 import { HttpClient } from '@angular/common/http';
 import { CreditCard } from '../interfaces/credit-card.interface';
-import { map } from 'rxjs/operators'
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -18,23 +18,30 @@ export class CreditCardService {
     private http: HttpClient
   ) { }
 
-  public getCreditCards(): Observable<any> {
+  public getCreditCards(): Observable<CreditCard[]> {
     return this.http.get(this.url + this.api)
       .pipe(map((response: CreditCard[]) => {
         return response;
       }));
   }
 
-  public deleteCreditCard(id: number): Observable<any> {
+  public deleteCreditCard(id: number): Observable<string> {
     return this.http.delete(this.url + this.api +  id)
-      .pipe(map((response) => {
+      .pipe(map((response: string) => {
         return response;
       }));
   }
 
-  public saveCreditCard(creditCard: CreditCard): Observable<any> {
+  public saveCreditCard(creditCard: CreditCard): Observable<CreditCard> {
     return this.http.post(this.url + this.api, creditCard)
-      .pipe(map(response => {
+      .pipe(map((response: CreditCard) => {
+        return response;
+      }));
+  }
+
+  public updateCreditCard(id: number, creditCard: CreditCard): Observable<string> {
+    return this.http.put(this.url + this.api + id, creditCard)
+      .pipe(map((response: string) => {
         return response;
       }));
   }
