@@ -15,6 +15,7 @@ export class CreditCardComponent implements OnInit {
   public action: string;
   public id: number | undefined;
   public formCreditCard: FormGroup;
+  public loading: boolean;
 
   constructor() { }
 
@@ -35,6 +36,10 @@ export class CreditCardComponent implements OnInit {
 
   public processFormCreditCardEmitter(formCreditCard: FormGroup): void {
     this.formCreditCard = formCreditCard;
+  }
+
+  public processLoading(loading: boolean): void {
+    this.loading = loading;
   }
 
 }

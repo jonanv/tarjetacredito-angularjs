@@ -20,7 +20,8 @@
             (creditCardsEmitter)="processCreditCardsEmitter($event)"
             [action]="action"
             [id]="id"
-            (formCreditCardEmitter)="processFormCreditCardEmitter($event)">
+            (formCreditCardEmitter)="processFormCreditCardEmitter($event)"
+            (loadingEmitter)="processLoading($event)">
           </app-credit-card-form>
 
         </div>
@@ -35,7 +36,8 @@
             [creditCards]="creditCards"
             (actionEmitter)="processActionEmitter($event)"
             (idEmitter)="processIdEmitter($event)"
-            [formCreditCard]="formCreditCard">
+            [formCreditCard]="formCreditCard"
+            [loading]="loading">
           </app-credit-card-list>
 
         </div>

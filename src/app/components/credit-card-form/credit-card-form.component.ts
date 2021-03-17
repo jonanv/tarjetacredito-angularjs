@@ -15,12 +15,13 @@ import { first } from 'rxjs/operators';
 export class CreditCardFormComponent implements OnInit {
 
   private creditCards: CreditCard[];
-  @Output() creditCardsEmitter: EventEmitter<CreditCard[]> = new EventEmitter();
+  @Output() private creditCardsEmitter: EventEmitter<CreditCard[]> = new EventEmitter();
   public formCreditCard: FormGroup;
   public loading: boolean = false;
-  @Input() id: number | undefined;
-  @Input() action: string;
-  @Output() formCreditCardEmitter: EventEmitter<FormGroup> = new EventEmitter();
+  @Output() loadingEmitter: EventEmitter<boolean> = new EventEmitter();
+  @Input() private id: number | undefined;
+  @Input() public action: string;
+  @Output() private formCreditCardEmitter: EventEmitter<FormGroup> = new EventEmitter();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -98,7 +99,11 @@ export class CreditCardFormComponent implements OnInit {
         });
     }
     else {
+      console.log(this.id);
+      console.log(this.action);
+
       this.loading = true;
+      this.loadingEmitter.emit(this.loading);
       let creditCard = this.createCreditCard();
 
       if (this.id === undefined) {
@@ -112,10 +117,12 @@ export class CreditCardFormComponent implements OnInit {
             this.formCreditCard.reset();
             this.getCreditCards();
             this.loading = false;
+            this.loadingEmitter.emit(this.loading);
           }, (error) => {
             this.toastrService.error('Ha ocurrido un error al guardar la tajeta!', 'Error!');
             console.error(error);
             this.loading = false;
+            this.loadingEmitter.emit(this.loading);
           });
       } else {
         // Editar tarjeta
@@ -125,16 +132,18 @@ export class CreditCardFormComponent implements OnInit {
           .subscribe((response: any) => {
             if (response.message) {
               this.toastrService.info(response.message, 'Tarjeta actualizada!');
-              this.getCreditCards();
               this.formCreditCard.reset();
+              this.getCreditCards();
               this.action = 'Agregar';
               this.id = undefined;
               this.loading = false;
+              this.loadingEmitter.emit(this.loading);
             }
           }, (error) => {
             this.toastrService.error('Ha ocurrido un error al editar la tajeta!', 'Error!');
             console.error(error);
             this.loading = false;
+            this.loadingEmitter.emit(this.loading);
           });
       }
     }
