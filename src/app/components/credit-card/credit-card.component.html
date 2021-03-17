@@ -16,13 +16,126 @@
       <div class="card">
         <div class="card-body">
 
-          <app-credit-card-form
-            (creditCardsEmitter)="processCreditCardsEmitter($event)"
-            [action]="action"
-            [id]="id"
-            (formCreditCardEmitter)="processFormCreditCardEmitter($event)"
-            (loadingEmitter)="processLoading($event)">
-          </app-credit-card-form>
+          <h3 class="titulo">{{ action | uppercase }} TARJETA</h3>
+
+          <!-- TODO: implementar mascara para los campos de numeroTarjeta y fechaExpiracion -->
+          <form class="needs-validation" autocomplete="off" [formGroup]="formCreditCard" (ngSubmit)="saveCreditCard()">
+            <div class="form-group mb-3">
+              <div class="input-group input-group-lg">
+                <span class="input-group-text">
+                  <i class="fas fa-user"
+                    [class.text-danger]="getTitular"
+                    [class.text-success]="f.titular?.valid">
+                  </i>
+                </span>
+                <input formControlName="titular"
+                  type="text"
+                  class="form-control"
+                  placeholder="Titular*"
+                  [class.is-invalid]="getTitular"
+                  [class.is-valid]="f.titular?.valid">
+              </div>
+              <div *ngIf="getTitular" class="my-1">
+                <span class="badge bg-danger d-block text-start">Debe ingresar el nombre del titular</span>
+              </div>
+              <div *ngIf="f.titular.errors?.pattern" class="my-1">
+                <span class="badge bg-danger d-block text-start">Debe ingresar solo letras</span>
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <div class="input-group input-group-lg">
+                <span class="input-group-text">
+                  <i class="fas fa-credit-card"
+                    [class.text-danger]="getNumeroTarjeta"
+                    [class.text-success]="f.numeroTarjeta?.valid">
+                  </i>
+                </span>
+                <input formControlName="numeroTarjeta"
+                  type="text"
+                  class="form-control"
+                  placeholder="Número de tarjeta*"
+                  [class.is-invalid]="getNumeroTarjeta"
+                  [class.is-valid]="f.numeroTarjeta?.valid"
+                  maxlength="16">
+              </div>
+              <div *ngIf="getNumeroTarjeta" class="my-1">
+                <span class="badge bg-danger d-block text-start">Debe ingresar el número de la tarjeta de crédito</span>
+              </div>
+              <div *ngIf="f.numeroTarjeta.errors?.pattern" class="my-1">
+                <span class="badge bg-danger d-block text-start">Debe ingresar solo números</span>
+              </div>
+              <div *ngIf="f.numeroTarjeta.errors?.minlength" class="my-1">
+                <span class="badge bg-danger d-block text-start">Debe ingresar mínimo {{ f.numeroTarjeta.errors.minlength.requiredLength }} dígitos</span>
+              </div>
+              <div *ngIf="f.numeroTarjeta.errors?.maxlength" class="my-1">
+                <span class="badge bg-danger d-block text-start">Debe ingresar máximo {{ f.numeroTarjeta.errors.maxlength.requiredLength }} dígitos</span>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-7">
+
+                <div class="form-group mb-3">
+                  <div class="input-group input-group-lg">
+                    <span class="input-group-text">
+                      <i class="far fa-calendar-alt"
+                        [class.text-danger]="getFechaExpiracion"
+                        [class.text-success]="f.fechaExpiracion?.valid">
+                      </i>
+                    </span>
+                    <input formControlName="fechaExpiracion"
+                      type="text"
+                      class="form-control"
+                      placeholder="MM/YY*"
+                      [class.is-invalid]="getFechaExpiracion"
+                      [class.is-valid]="f.fechaExpiracion?.valid"
+                      maxlength="5">
+                  </div>
+                  <div *ngIf="getFechaExpiracion" class="my-1">
+                    <span class="badge bg-danger d-block text-start">Debe ingresar una fecha</span>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-lg-5">
+
+                <div class="form-group mb-3">
+                  <div class="input-group input-group-lg">
+                    <span class="input-group-text">
+                      <i class="fas fa-key"
+                        [class.text-danger]="getCvv"
+                        [class.text-success]="f.cvv?.valid">
+                      </i>
+                    </span>
+                    <input formControlName="cvv"
+                      type="password"
+                      class="form-control"
+                      placeholder="CVV*"
+                      [class.is-invalid]="getCvv"
+                      [class.is-valid]="f.cvv?.valid"
+                      maxlength="3">
+                  </div>
+                  <div *ngIf="getCvv" class="my-1">
+                    <span class="badge bg-danger d-block text-start">Debe ingresar una clave</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="d-grid gap-2">
+              <button class="btn btn-success btn-block"
+                type="submit"
+                [disabled]="this.formCreditCard.invalid || loading">
+                <i class="fas"
+                  [ngClass]="{'fa-spin fa-sync': loading, 'fa-database': !loading}">
+                </i>
+                <span *ngIf="!loading">&nbsp;Aceptar</span>
+                <span *ngIf="loading">&nbsp;Guardando...</span>
+              </button>
+            </div>
+          </form>
 
         </div>
       </div>
@@ -32,13 +145,42 @@
       <div class="card">
         <div class="card-body">
 
-          <app-credit-card-list
-            [creditCards]="creditCards"
-            (actionEmitter)="processActionEmitter($event)"
-            (idEmitter)="processIdEmitter($event)"
-            [formCreditCard]="formCreditCard"
-            [loading]="loading">
-          </app-credit-card-list>
+          <h3 class="titulo">LISTA DE TARJETAS</h3>
+
+          <ng-container *ngIf="loading">
+            <div class="my-3 d-flex justify-content-center align-content-center">
+              <span><i class="fas fa-spin fa-sync fa-3x"></i></span>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="!loading">
+            <table class="table">
+              <thead>
+                <th>
+                  <tr></tr>
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let creditCard of creditCards">
+                  <td>{{ creditCard.titular }}</td>
+                  <td>{{ creditCard.numeroTarjeta }}</td>
+                  <td>{{ creditCard.fechaExpiracion }}</td>
+                  <td>
+                    <a class="a_link"
+                      (click)="updateCreditCard(creditCard)">
+                      <i class="far fa-edit text-info"></i>
+                    </a>
+                  </td>
+                  <td>
+                    <a class="a_link"
+                      (click)="removeCreditCard(creditCard.id)">
+                      <i class="far fa-trash-alt text-danger"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </ng-container>
 
         </div>
       </div>

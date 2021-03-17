@@ -14,16 +14,14 @@ import { ToastrModule } from 'ngx-toastr';
 
 // Imports components
 import { AppComponent } from './app.component';
+import { CreditCardContainerComponent } from './components/credit-card-container/credit-card-container.component';
 import { CreditCardComponent } from './components/credit-card/credit-card.component';
-import { CreditCardFormComponent } from './components/credit-card-form/credit-card-form.component';
-import { CreditCardListComponent } from './components/credit-card-list/credit-card-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CreditCardComponent,
-    CreditCardFormComponent,
-    CreditCardListComponent
+    CreditCardContainerComponent,
+    CreditCardComponent
   ],
   imports: [
     BrowserModule,
