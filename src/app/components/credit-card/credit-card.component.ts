@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CreditCard } from 'src/app/interfaces/credit-card.interface';
 import { CreditCardService } from '../../services/credit-card.service';
 import { first } from 'rxjs/operators';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-credit-card',
@@ -151,23 +152,32 @@ export class CreditCardComponent implements OnInit {
       });
   }
 
-  public removeCreditCard(index: number): void {
-    // TODO: Agregar una confirmacion al boton
-    this.loading = true;
-    this.creditCardService.deleteCreditCard(index)
-      .pipe(first())
-      .subscribe((response: any) => {
-        if (response.message) {
-          this.toastrService.error(response.message, 'Tarjeta eliminada!');
-          this.getCreditCards();
-          this.formCreditCard.reset();
-          this.action = 'Agregar';
-          this.loading = false;
-        }
-      }, (error) => {
-        console.error(error);
-        this.loading = false;
-      });
+  public removeCreditCard(index: number, creditCard: CreditCard): void {
+    Swal.fire({
+      title: '¿Está seguro?',
+      text: `Está seguro que desea borrar a ${ creditCard.titular }`,
+      icon: 'question',
+      showConfirmButton: true,
+      showCancelButton: true
+    }).then(response => {
+      if (response.value) {
+        this.loading = true;
+        this.creditCardService.deleteCreditCard(index)
+          .pipe(first())
+          .subscribe((response: any) => {
+            if (response.message) {
+              this.toastrService.error(response.message, 'Tarjeta eliminada!');
+              this.getCreditCards();
+              this.formCreditCard.reset();
+              this.action = 'Agregar';
+              this.loading = false;
+            }
+          }, (error) => {
+            console.error(error);
+            this.loading = false;
+          });
+      }
+    });
   }
 
   public updateCreditCard(creditCard: CreditCard): void {
