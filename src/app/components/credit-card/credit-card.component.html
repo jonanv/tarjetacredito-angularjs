@@ -18,6 +18,58 @@
 
           <h3 class="titulo">{{ action | uppercase }} TARJETA</h3>
 
+          <div class="container-card">
+            <div class="credit-card" (click)="changeFace = !changeFace" [ngClass]="{'active': changeFace}">
+
+              <div class="card-front">
+                <div class="brand-logo">
+                  <img src="assets/img/logos/visa.png" alt="">
+                </div>
+                <img src="assets/img/chip-tarjeta.png" class="chip" alt="">
+                <div class="data">
+                  <div class="group-card" id="number">
+                    <p class="label">Número tarjeta</p>
+                    <p class="number">#### #### #### ####</p>
+                  </div>
+                  <div class="flexbox">
+                    <div class="group-card" id="name">
+                      <p class="label">Numbre tarjeta</p>
+                      <p class="name">Jhon Doe</p>
+                    </div>
+                    <div class="group-card" id="expiration">
+                      <p class="label">Expiración</p>
+                      <p class="expiration">
+                        <span class="month">MM</span> / <span class="year">AA</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card-back">
+                <div class="magnetic-bar"></div>
+                <div class="data">
+                  <div class="group-card" id="firma">
+                    <p class="label">Firma</p>
+                    <div class="firma">
+                      <p>Carlos Arturo</p>
+                    </div>
+                  </div>
+                  <div class="group-card" id="cvv">
+                    <p class="label">CVV</p>
+                    <p class="cvv"></p>
+                  </div>
+                </div>
+                <p class="class">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tempor, sem tempus lacinia vestibulum, ex nunc eleifend lorem.
+                </p>
+                <a href="" class="link-bank">www.tubanco.com</a>
+              </div>
+
+            </div>
+          </div>
+
+
           <!-- TODO: implementar mascara para los campos de numeroTarjeta y fechaExpiracion -->
           <form class="needs-validation" autocomplete="off" [formGroup]="formCreditCard" (ngSubmit)="saveCreditCard()">
             <div class="form-group mb-3">

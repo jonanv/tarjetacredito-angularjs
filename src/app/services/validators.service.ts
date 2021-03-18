@@ -17,7 +17,7 @@ export class ValidatorsService {
 
     let month: string = '';
     let year: string = '';
-    let yearActual: number = 2021;
+    let dateActual: Date = new Date();
     console.log(date.indexOf('/'));
 
     if (date.indexOf('/') !== -1) {
@@ -40,7 +40,7 @@ export class ValidatorsService {
     console.log(month);
     console.log(year);
 
-    if (parseInt(month) < 1 || parseInt(month) > 12 && parseInt(year) <= yearActual) {
+    if (parseInt(month) < 1 || parseInt(month) > 12 && parseInt(year) <= dateActual.getFullYear()) {
       return {
         dateExpiration: true
       }

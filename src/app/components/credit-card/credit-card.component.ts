@@ -21,6 +21,7 @@ export class CreditCardComponent implements OnInit {
   public loading: boolean = false;
   private id: number | undefined;
   public action: string;
+  public changeFace: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -193,5 +194,15 @@ export class CreditCardComponent implements OnInit {
       cvv: creditCard.cvv
     });
   }
+
+  // public changeCreditCardFace() {
+  //   console.log('presiono');
+  //   this.changeFace = !this.changeFace;
+  //   // const credit_card = document.querySelector('credit-card');
+
+  //   // credit_card.addEventListener('click', () => {
+  //   //   credit_card.classList.toggle('active');
+  //   // });
+  // }
 
 }
