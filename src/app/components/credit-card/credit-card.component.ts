@@ -7,6 +7,7 @@ import { CreditCard } from 'src/app/interfaces/credit-card.interface';
 import { CreditCardService } from '../../services/credit-card.service';
 import { first } from 'rxjs/operators';
 import Swal from "sweetalert2";
+import { ValidatorsService } from '../../services/validators.service';
 
 @Component({
   selector: 'app-credit-card',
@@ -24,7 +25,8 @@ export class CreditCardComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private toastrService: ToastrService,
-    private creditCardService: CreditCardService
+    private creditCardService: CreditCardService,
+    private validatorsService: ValidatorsService
   ) { }
 
   ngOnInit(): void {
@@ -47,8 +49,8 @@ export class CreditCardComponent implements OnInit {
       ]],
       fechaExpiracion: ['', [
         Validators.required,
-        Validators.maxLength(5),
-        Validators.minLength(5)
+        Validators.maxLength(7),
+        Validators.minLength(7)
       ]],
       cvv: ['', [
         Validators.required,

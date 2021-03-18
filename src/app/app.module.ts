@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 // Imports
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxMaskModule } from "ngx-mask";
 
 // Imports components
 import { AppComponent } from './app.component';
@@ -30,7 +31,8 @@ import { CreditCardComponent } from './components/credit-card/credit-card.compon
     ReactiveFormsModule,
     BrowserAnimationsModule,  // required animations module
     ToastrModule.forRoot(),   // ToastrModule added
-    HttpClientModule
+    HttpClientModule,
+    NgxMaskModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

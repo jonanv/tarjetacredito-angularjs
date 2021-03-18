@@ -57,7 +57,8 @@
                   placeholder="Número de tarjeta*"
                   [class.is-invalid]="getNumeroTarjeta"
                   [class.is-valid]="f.numeroTarjeta?.valid"
-                  maxlength="16">
+                  maxlength="20"
+                  mask="0000-0000-0000-0000">
               </div>
               <div *ngIf="getNumeroTarjeta" class="my-1">
                 <span class="badge bg-danger d-block text-start">Debe ingresar el número de la tarjeta de crédito</span>
@@ -87,10 +88,10 @@
                     <input formControlName="fechaExpiracion"
                       type="text"
                       class="form-control"
-                      placeholder="MM/YY*"
+                      placeholder="MM/YYYY*"
                       [class.is-invalid]="getFechaExpiracion"
                       [class.is-valid]="f.fechaExpiracion?.valid"
-                      maxlength="5">
+                      maxlength="7">
                   </div>
                   <div *ngIf="getFechaExpiracion" class="my-1">
                     <span class="badge bg-danger d-block text-start">Debe ingresar una fecha</span>
@@ -163,7 +164,7 @@
               <tbody>
                 <tr *ngFor="let creditCard of creditCards">
                   <td>{{ creditCard.titular }}</td>
-                  <td>{{ creditCard.numeroTarjeta }}</td>
+                  <td>{{ creditCard.numeroTarjeta | mask: '0000-0000-0000-0000' }}</td>
                   <td>{{ creditCard.fechaExpiracion }}</td>
                   <td>
                     <a class="a_link"
