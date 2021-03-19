@@ -134,7 +134,7 @@ export class CreditCardComponent implements OnInit {
               this.loading = false;
             }
           }, (error) => {
-            this.toastrService.error('Ha ocurrido un error al editar la tajeta!', 'Error!');
+            this.toastrService.error('Ha ocurrido un error al editar la tarjeta!', 'Error!');
             console.error(error);
             this.loading = false;
           });
