@@ -22,12 +22,14 @@ export class CreditCardComponent implements OnInit {
   private id: number | undefined;
   public action: string;
   public changeFace: boolean = false;
+  public rotateButton: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private toastrService: ToastrService,
     private creditCardService: CreditCardService,
-    private validatorsService: ValidatorsService
+    // TODO: Determinar si se puede aplicar o no un validatorService para el campo fecha de expiracion o definitivamente separarlo
+    // private validatorsService: ValidatorsService
   ) { }
 
   ngOnInit(): void {
@@ -194,15 +196,5 @@ export class CreditCardComponent implements OnInit {
       cvv: creditCard.cvv
     });
   }
-
-  // public changeCreditCardFace() {
-  //   console.log('presiono');
-  //   this.changeFace = !this.changeFace;
-  //   // const credit_card = document.querySelector('credit-card');
-
-  //   // credit_card.addEventListener('click', () => {
-  //   //   credit_card.classList.toggle('active');
-  //   // });
-  // }
 
 }

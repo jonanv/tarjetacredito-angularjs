@@ -18,6 +18,8 @@
 
           <h3 class="titulo">{{ action | uppercase }} TARJETA</h3>
 
+          <!-- TODO: Separar la tarjeta en un componente y renombrar componentes -->
+          <!-- Credit card -->
           <div class="container-card">
             <div class="credit-card" (click)="changeFace = !changeFace" [ngClass]="{'active': changeFace}">
 
@@ -52,7 +54,7 @@
                   <div class="group-card" id="firma">
                     <p class="label">Firma</p>
                     <div class="firma">
-                      <p>Carlos Arturo</p>
+                      <p></p>
                     </div>
                   </div>
                   <div class="group-card" id="cvv">
@@ -67,6 +69,13 @@
               </div>
 
             </div>
+          </div>
+
+          <!-- Container button -->
+          <div class="container-btn">
+            <button class="btn-open-form" id="btn-open-form" (click)="rotateButton = !rotateButton" [ngClass]="{'active': rotateButton}">
+              <i class="fas fa-plus"></i>
+            </button>
           </div>
 
 

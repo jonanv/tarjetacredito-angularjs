@@ -10,8 +10,8 @@
 # Site
 <!-- TODO: Agregar imagenes del frontend -->
 <!-- ![tarjetacredito angularjs](https://i.imgur.com/B2heenX.png) -->
-![tarjetacredito angularjs 1](https://i.imgur.com/Me55x8o.png)
-![tarjetacredito angularjs 2](https://i.imgur.com/yHrX9sL.png)
+<!-- ![tarjetacredito angularjs 1](https://i.imgur.com/Me55x8o.png)
+![tarjetacredito angularjs 2](https://i.imgur.com/yHrX9sL.png) -->
 
 # Install dependences
 in ```tarjetacredito-angularjs/```
