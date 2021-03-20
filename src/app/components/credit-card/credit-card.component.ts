@@ -23,19 +23,34 @@ export class CreditCardComponent implements OnInit {
   public action: string;
   public changeFace: boolean = false;
   public rotateButton: boolean = false;
+  public monthSelector: number[] = [];
+  public yearSelector: number[] = [];
+  private yearActual: number = new Date().getFullYear();
 
   constructor(
     private formBuilder: FormBuilder,
     private toastrService: ToastrService,
     private creditCardService: CreditCardService,
-    // TODO: Determinar si se puede aplicar o no un validatorService para el campo fecha de expiracion o definitivamente separarlo
-    // private validatorsService: ValidatorsService
+    private validatorsService: ValidatorsService
   ) { }
 
   ngOnInit(): void {
     this.createForm();
     this.getCreditCards();
     this.action = 'Agregar';
+    this.fillSelectors();
+  }
+
+  private fillSelectors(): void {
+    for (let i = 1; i <= 12; i++) {
+      this.monthSelector.push(i);
+    }
+
+    let year = this.yearActual.toFixed().split('');
+    let yearModified = parseInt(year[2] + year[3]);
+    for (let k = yearModified; k <= (yearModified+ 8); k++) {
+      this.yearSelector.push(k);
+    }
   }
 
   private createForm() {
@@ -50,10 +65,13 @@ export class CreditCardComponent implements OnInit {
         Validators.maxLength(16),
         Validators.minLength(16)
       ]],
-      fechaExpiracion: ['', [
+      monthExpiration: ['0', [
         Validators.required,
-        Validators.maxLength(7),
-        Validators.minLength(7)
+        this.validatorsService.validateOptionZero
+      ]],
+      yearExpiration: ['0', [
+        Validators.required,
+        this.validatorsService.validateOptionZero
       ]],
       cvv: ['', [
         Validators.required,
@@ -76,8 +94,13 @@ export class CreditCardComponent implements OnInit {
     return this.formCreditCard.get('numeroTarjeta').invalid && this.formCreditCard.get('numeroTarjeta').touched;
   }
 
-  public get getFechaExpiracion(): boolean {
-    return this.formCreditCard.get('fechaExpiracion').invalid && this.formCreditCard.get('fechaExpiracion').touched;
+  public get getMonthExpiration(): boolean {
+    return this.formCreditCard.get('monthExpiration').invalid && this.formCreditCard.get('monthExpiration').touched
+      || this.formCreditCard.get('monthExpiration').dirty && this.formCreditCard.get('monthExpiration').value === '0';
+  }
+  public get getYearExpiration(): boolean {
+    return this.formCreditCard.get('yearExpiration').invalid && this.formCreditCard.get('yearExpiration').touched
+      || this.formCreditCard.get('yearExpiration').dirty && this.formCreditCard.get('yearExpiration').value === '0';
   }
 
   public get getCvv(): boolean {

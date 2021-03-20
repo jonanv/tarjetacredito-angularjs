@@ -37,7 +37,7 @@
                 <div class="group-card" id="expiration">
                   <p class="label">Expiración</p>
                   <p class="expiration">
-                    <span class="month">MM</span> / <span class="year">AA</span>
+                    <span class="month">MM</span> / <span class="year">YY</span>
                   </p>
                 </div>
               </div>
@@ -79,7 +79,6 @@
 
           <h3 class="titulo">{{ action | uppercase }} TARJETA</h3>
 
-          <!-- TODO: implementar mascara para los campos de numeroTarjeta y fechaExpiracion -->
           <!-- Formulario Credit Card -->
           <form class="needs-validation" autocomplete="off" [formGroup]="formCreditCard" (ngSubmit)="saveCreditCard()">
             <div class="form-group mb-3">
@@ -143,25 +142,35 @@
                     <div class="input-group input-group-lg">
                       <span class="input-group-text">
                         <i class="fas fa-calendar-alt"
-                          [class.text-danger]="getFechaExpiracion"
-                          [class.text-success]="f.fechaExpiracion?.valid">
+                          [class.text-danger]="getMonthExpiration || getYearExpiration"
+                          [class.text-success]="f.monthExpiration?.valid || f.yearExpiration?.valid">
                         </i>
                       </span>
-                        <select class="form-select" formControlName="fechaExpiracion"
-                          [class.is-invalid]="getFechaExpiracion"
-                          [class.is-valid]="f.fechaExpiracion?.valid">
-                          <option disabled selected>MM*</option>
-                          <option value="12">12</option>
+                        <select class="form-select" formControlName="monthExpiration"
+                          [class.is-invalid]="getMonthExpiration"
+                          [class.is-valid]="f.monthExpiration?.valid">
+                          <option disabled selected [value]='0'>MM*</option>
+                          <option *ngFor="let month of monthSelector"
+                            [value]="month">{{ month }}
+                          </option>
                         </select>
-                        <select class="form-select" formControlName="fechaExpiracion"
-                          [class.is-invalid]="getFechaExpiracion"
-                          [class.is-valid]="f.fechaExpiracion?.valid">
-                          <option disabled selected>YYYY*</option>
-                          <option value="2021">2021</option>
+                        <select class="form-select" formControlName="yearExpiration"
+                          [class.is-invalid]="getYearExpiration"
+                          [class.is-valid]="f.yearExpiration?.valid">
+                          <option disabled selected [value]='0'>YY*</option>
+                          <option *ngFor="let year of yearSelector"
+                            [value]="year">{{ year }}
+                          </option>
                         </select>
                     </div>
-                    <div *ngIf="getFechaExpiracion" class="my-1">
+                    <div *ngIf="getMonthExpiration && getYearExpiration" class="my-1">
                       <span class="badge bg-danger d-block text-start">Debe ingresar una fecha</span>
+                    </div>
+                    <div *ngIf="getMonthExpiration" class="my-1">
+                      <span class="badge bg-danger d-block text-start">Debe ingresar un mes</span>
+                    </div>
+                    <div *ngIf="getYearExpiration" class="my-1">
+                      <span class="badge bg-danger d-block text-start">Debe ingresar un año</span>
                     </div>
                   </div>
               </div>
