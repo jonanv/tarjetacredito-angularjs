@@ -16,7 +16,7 @@ body {
 	font-family: 'Lato', sans-serif;
 }
 
-/* Estilos del validate */
+/* ------------------------------ Estilos del validate ------------------------------ */
 
 .titulo {
   font-family: 'Play', sans-serif;
@@ -44,19 +44,19 @@ span i.text-success::before {
   cursor: pointer;
 }
 
-/* Tarjeta de credito */
+/* ------------------------------ Tarjeta de credito ------------------------------ */
 
 .container-card {
   width: 95%;
   max-width: 1000px;
-  padding: 20px 10px;
+  padding: 10px 10px;
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* Estilos generales de la tarjeta */
+/* ------------------------------ Estilos generales de la tarjeta ------------------------------ */
 
 .credit-card {
   width: 100%;
@@ -85,7 +85,7 @@ span i.text-success::before {
   box-shadow: 0 10px 10px 0 rgba(90, 116, 148, 0.3);
 }
 
-/* Frente de la tarjeta */
+/* ------------------------------ Frente de la tarjeta ------------------------------ */
 
 .credit-card .card-front {
   width: 100%;
@@ -135,7 +135,8 @@ span i.text-success::before {
   margin-top: 20px;
 }
 
-/* Reves de la tarjeta */
+/* ------------------------------ Reves de la tarjeta ------------------------------ */
+
 .credit-card .card-back {
   width: 100%;
   background: url('assets/img/bg-tarjeta/bg-tarjeta-02.jpg');
@@ -205,7 +206,8 @@ span i.text-success::before {
   color: #fff;
 }
 
-/* Contenedor del boton */
+/* ------------------------------ Contenedor del boton ------------------------------ */
+
 .container-btn {
   display: flex;
   justify-content: center;
@@ -219,7 +221,7 @@ span i.text-success::before {
   background: #2364d2;
   color: #fff;
   position: relative;
-  top: -45px;
+  top: -35px;
   z-index: 3;
   border-radius: 100%;
   box-shadow: 5px 4px 8px rgba(24, 56, 82, 0.4);
@@ -235,4 +237,41 @@ span i.text-success::before {
 
 .container-btn .btn-open-form.active {
   transform: rotate(45deg);
+}
+
+/* ------------------------------ Tarjeta formulario ------------------------------ */
+
+.card-form-credit-card {
+  padding: 150px 30px 30px 30px;
+  position: relative;
+  top: -150px;
+  z-index: 1;
+  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  transition: clip-path .3s ease-out;
+}
+
+.card-form-credit-card.active {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.card-form-credit-card input:hover,
+.card-form-credit-card select:hover {
+  border: 1px solid #93bded;
+}
+
+.card-form-credit-card input:focus,
+.card-form-credit-card select:focus {
+  outline: rgb(4, 4, 4);
+  box-shadow: 1px 7px 10px -5px rgba(90, 116, 148, .3);
+}
+
+.card-form-credit-card .btn-save {
+  background: #2364d2 !important;
+  color: #fff;
+  box-shadow: 2px 2px 10px 0px rgba(0, 85, 212, 0.4);
+  font-size: 1.25rem;
+}
+
+.card-form-credit-card .btn-save:hover {
+  background: #1850b1 !important;
 }

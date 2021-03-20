@@ -13,73 +13,74 @@
   <!-- TODO: Agregar animated CSS -->
   <div class="row mt-4">
     <div class="col-lg-6">
-      <div class="card">
+
+      <!-- TODO: Separar la tarjeta en un componente y renombrar componentes -->
+      <!-- Credit card -->
+      <div class="container-card">
+        <div class="credit-card" (click)="changeFace = !changeFace" [ngClass]="{'active': changeFace}">
+
+          <div class="card-front">
+            <div class="brand-logo">
+              <img src="assets/img/logos/visa.png" alt="">
+            </div>
+            <img src="assets/img/chip-tarjeta.png" class="chip" alt="">
+            <div class="data">
+              <div class="group-card" id="number">
+                <p class="label">Número tarjeta</p>
+                <p class="number">#### #### #### ####</p>
+              </div>
+              <div class="flexbox">
+                <div class="group-card" id="name">
+                  <p class="label">Numbre tarjeta</p>
+                  <p class="name">Jhon Doe</p>
+                </div>
+                <div class="group-card" id="expiration">
+                  <p class="label">Expiración</p>
+                  <p class="expiration">
+                    <span class="month">MM</span> / <span class="year">AA</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-back">
+            <div class="magnetic-bar"></div>
+            <div class="data">
+              <div class="group-card" id="firma">
+                <p class="label">Firma</p>
+                <div class="firma">
+                  <p></p>
+                </div>
+              </div>
+              <div class="group-card" id="cvv">
+                <p class="label">CVV</p>
+                <p class="cvv"></p>
+              </div>
+            </div>
+            <p class="class">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tempor, sem tempus lacinia vestibulum, ex nunc eleifend lorem.
+            </p>
+            <a href="" class="link-bank">www.tubanco.com</a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Container button -->
+      <div class="container-btn">
+        <button class="btn-open-form" id="btn-open-form" (click)="rotateButton = !rotateButton" [ngClass]="{'active': rotateButton}">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+
+      <div class="card card-form-credit-card" [ngClass]="{'active': rotateButton}">
         <div class="card-body">
 
           <h3 class="titulo">{{ action | uppercase }} TARJETA</h3>
 
-          <!-- TODO: Separar la tarjeta en un componente y renombrar componentes -->
-          <!-- Credit card -->
-          <div class="container-card">
-            <div class="credit-card" (click)="changeFace = !changeFace" [ngClass]="{'active': changeFace}">
-
-              <div class="card-front">
-                <div class="brand-logo">
-                  <img src="assets/img/logos/visa.png" alt="">
-                </div>
-                <img src="assets/img/chip-tarjeta.png" class="chip" alt="">
-                <div class="data">
-                  <div class="group-card" id="number">
-                    <p class="label">Número tarjeta</p>
-                    <p class="number">#### #### #### ####</p>
-                  </div>
-                  <div class="flexbox">
-                    <div class="group-card" id="name">
-                      <p class="label">Numbre tarjeta</p>
-                      <p class="name">Jhon Doe</p>
-                    </div>
-                    <div class="group-card" id="expiration">
-                      <p class="label">Expiración</p>
-                      <p class="expiration">
-                        <span class="month">MM</span> / <span class="year">AA</span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="card-back">
-                <div class="magnetic-bar"></div>
-                <div class="data">
-                  <div class="group-card" id="firma">
-                    <p class="label">Firma</p>
-                    <div class="firma">
-                      <p></p>
-                    </div>
-                  </div>
-                  <div class="group-card" id="cvv">
-                    <p class="label">CVV</p>
-                    <p class="cvv"></p>
-                  </div>
-                </div>
-                <p class="class">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tempor, sem tempus lacinia vestibulum, ex nunc eleifend lorem.
-                </p>
-                <a href="" class="link-bank">www.tubanco.com</a>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- Container button -->
-          <div class="container-btn">
-            <button class="btn-open-form" id="btn-open-form" (click)="rotateButton = !rotateButton" [ngClass]="{'active': rotateButton}">
-              <i class="fas fa-plus"></i>
-            </button>
-          </div>
-
-
           <!-- TODO: implementar mascara para los campos de numeroTarjeta y fechaExpiracion -->
+          <!-- Formulario Credit Card -->
           <form class="needs-validation" autocomplete="off" [formGroup]="formCreditCard" (ngSubmit)="saveCreditCard()">
             <div class="form-group mb-3">
               <div class="input-group input-group-lg">
@@ -136,32 +137,36 @@
             </div>
 
             <div class="row">
-              <div class="col-lg-7">
 
-                <div class="form-group mb-3">
-                  <div class="input-group input-group-lg">
-                    <span class="input-group-text">
-                      <i class="far fa-calendar-alt"
-                        [class.text-danger]="getFechaExpiracion"
-                        [class.text-success]="f.fechaExpiracion?.valid">
-                      </i>
-                    </span>
-                    <input formControlName="fechaExpiracion"
-                      type="text"
-                      class="form-control"
-                      placeholder="MM/YYYY*"
-                      [class.is-invalid]="getFechaExpiracion"
-                      [class.is-valid]="f.fechaExpiracion?.valid"
-                      maxlength="7">
+              <div class="col-lg-7 pe-0">
+                  <div class="form-group mb-3">
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-text">
+                        <i class="fas fa-calendar-alt"
+                          [class.text-danger]="getFechaExpiracion"
+                          [class.text-success]="f.fechaExpiracion?.valid">
+                        </i>
+                      </span>
+                        <select class="form-select" formControlName="fechaExpiracion"
+                          [class.is-invalid]="getFechaExpiracion"
+                          [class.is-valid]="f.fechaExpiracion?.valid">
+                          <option disabled selected>MM*</option>
+                          <option value="12">12</option>
+                        </select>
+                        <select class="form-select" formControlName="fechaExpiracion"
+                          [class.is-invalid]="getFechaExpiracion"
+                          [class.is-valid]="f.fechaExpiracion?.valid">
+                          <option disabled selected>YYYY*</option>
+                          <option value="2021">2021</option>
+                        </select>
+                    </div>
+                    <div *ngIf="getFechaExpiracion" class="my-1">
+                      <span class="badge bg-danger d-block text-start">Debe ingresar una fecha</span>
+                    </div>
                   </div>
-                  <div *ngIf="getFechaExpiracion" class="my-1">
-                    <span class="badge bg-danger d-block text-start">Debe ingresar una fecha</span>
-                  </div>
-                </div>
-
               </div>
-              <div class="col-lg-5">
 
+              <div class="col-lg-5">
                 <div class="form-group mb-3">
                   <div class="input-group input-group-lg">
                     <span class="input-group-text">
@@ -182,16 +187,16 @@
                     <span class="badge bg-danger d-block text-start">Debe ingresar una clave</span>
                   </div>
                 </div>
-
               </div>
+
             </div>
 
             <div class="d-grid gap-2">
-              <button class="btn btn-success btn-block"
+              <button class="btn btn-primary btn-block btn-save"
                 type="submit"
                 [disabled]="this.formCreditCard.invalid || loading">
                 <i class="fas"
-                  [ngClass]="{'fa-spin fa-sync': loading, 'fa-database': !loading}">
+                  [ngClass]="{'fa-spin fa-sync': loading, 'fa-save': !loading}">
                 </i>
                 <span *ngIf="!loading">&nbsp;Aceptar</span>
                 <span *ngIf="loading">&nbsp;Guardando...</span>

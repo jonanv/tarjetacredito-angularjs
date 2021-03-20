@@ -119,7 +119,6 @@ export class CreditCardComponent implements OnInit {
           }, (error) => {
             this.toastrService.error('Ha ocurrido un error al guardar la tajeta!', 'Error!');
             console.error(error);
-            this.loading = false;
           });
       } else {
         // Editar tarjeta
@@ -138,7 +137,6 @@ export class CreditCardComponent implements OnInit {
           }, (error) => {
             this.toastrService.error('Ha ocurrido un error al editar la tarjeta!', 'Error!');
             console.error(error);
-            this.loading = false;
           });
       }
     }
@@ -153,7 +151,6 @@ export class CreditCardComponent implements OnInit {
         this.loading = false;
       }, (error) => {
         console.error(error);
-        this.loading = false;
       });
   }
 
@@ -179,7 +176,6 @@ export class CreditCardComponent implements OnInit {
             }
           }, (error) => {
             console.error(error);
-            this.loading = false;
           });
       }
     });
