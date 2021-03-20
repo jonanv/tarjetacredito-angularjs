@@ -17,22 +17,26 @@
       <!-- TODO: Separar la tarjeta en un componente y renombrar componentes -->
       <!-- Credit card -->
       <div class="container-card">
-        <div class="credit-card" (click)="changeFace = !changeFace" [ngClass]="{'active': changeFace}">
+        <div class="credit-card"
+          (click)="changeFaceCard = !changeFaceCard"
+          [ngClass]="{'active': changeFaceCard}">
 
-          <div class="card-front">
+          <div class="card-front"
+            [ngStyle]="{'background': 'url(assets/img/bg-tarjeta/bg-' + getImageCreditCard + '.jpg)'}">
             <div class="brand-logo">
-              <img src="assets/img/logos/visa.png" alt="">
+              <img *ngIf="getImageCreditCard" [src]="'assets/img/logos/' + getImageCreditCard + '.png'" alt="">
             </div>
             <img src="assets/img/chip-tarjeta.png" class="chip" alt="">
             <div class="data">
               <div class="group-card" id="number">
                 <p class="label">Número tarjeta</p>
-                <p class="number">#### #### #### ####</p>
+                <p class="number">{{ getNumeroTarjetaValue ?
+                  (getNumeroTarjetaValue | mask: '0000-0000-0000-0000') : '####-####-####-####' }}</p>
               </div>
               <div class="flexbox">
                 <div class="group-card" id="name">
                   <p class="label">Numbre tarjeta</p>
-                  <p class="name">Jhon Doe</p>
+                  <p class="name">{{ getTitularValue | uppercase }}</p>
                 </div>
                 <div class="group-card" id="expiration">
                   <p class="label">Expiración</p>
@@ -44,13 +48,14 @@
             </div>
           </div>
 
-          <div class="card-back">
+          <div class="card-back"
+            [ngStyle]="{'background': 'url(assets/img/bg-tarjeta/bg-' + getImageCreditCard + '.jpg)'}">
             <div class="magnetic-bar"></div>
             <div class="data">
               <div class="group-card" id="firma">
                 <p class="label">Firma</p>
                 <div class="firma">
-                  <p></p>
+                  <p>{{ getTitularValue | titlecase }}</p>
                 </div>
               </div>
               <div class="group-card" id="cvv">
@@ -94,7 +99,9 @@
                   class="form-control"
                   placeholder="Titular*"
                   [class.is-invalid]="getTitular"
-                  [class.is-valid]="f.titular?.valid">
+                  [class.is-valid]="f.titular?.valid"
+                  maxlength="50"
+                  (click)="showCardFront(false)">
               </div>
               <div *ngIf="getTitular" class="my-1">
                 <span class="badge bg-danger d-block text-start">Debe ingresar el nombre del titular</span>
@@ -119,7 +126,8 @@
                   [class.is-invalid]="getNumeroTarjeta"
                   [class.is-valid]="f.numeroTarjeta?.valid"
                   maxlength="20"
-                  mask="0000-0000-0000-0000">
+                  mask="0000-0000-0000-0000"
+                  (click)="showCardFront(false)">
               </div>
               <div *ngIf="getNumeroTarjeta" class="my-1">
                 <span class="badge bg-danger d-block text-start">Debe ingresar el número de la tarjeta de crédito</span>
@@ -148,7 +156,8 @@
                       </span>
                         <select class="form-select" formControlName="monthExpiration"
                           [class.is-invalid]="getMonthExpiration"
-                          [class.is-valid]="f.monthExpiration?.valid">
+                          [class.is-valid]="f.monthExpiration?.valid"
+                          (click)="showCardFront(false)">
                           <option disabled selected [value]='0'>MM*</option>
                           <option *ngFor="let month of monthSelector"
                             [value]="month">{{ month }}
@@ -156,7 +165,8 @@
                         </select>
                         <select class="form-select" formControlName="yearExpiration"
                           [class.is-invalid]="getYearExpiration"
-                          [class.is-valid]="f.yearExpiration?.valid">
+                          [class.is-valid]="f.yearExpiration?.valid"
+                          (click)="showCardFront(false)">
                           <option disabled selected [value]='0'>YY*</option>
                           <option *ngFor="let year of yearSelector"
                             [value]="year">{{ year }}
@@ -190,7 +200,8 @@
                       placeholder="CVV*"
                       [class.is-invalid]="getCvv"
                       [class.is-valid]="f.cvv?.valid"
-                      maxlength="3">
+                      maxlength="3"
+                      (click)="showCardFront(true)">
                   </div>
                   <div *ngIf="getCvv" class="my-1">
                     <span class="badge bg-danger d-block text-start">Debe ingresar una clave</span>

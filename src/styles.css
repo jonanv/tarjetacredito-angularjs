@@ -89,8 +89,9 @@ span i.text-success::before {
 
 .credit-card .card-front {
   width: 100%;
-  background: url('assets/img/bg-tarjeta/bg-tarjeta-02.jpg');
-  background-size: cover;
+  /* background: url('assets/img/bg-tarjeta/bg-tarjeta-02.jpg'); */
+  background-size: cover !important;
+  background-color: #000;
 }
 
 .credit-card.active .card-front {
@@ -139,8 +140,9 @@ span i.text-success::before {
 
 .credit-card .card-back {
   width: 100%;
-  background: url('assets/img/bg-tarjeta/bg-tarjeta-02.jpg');
-  background-size: cover;
+  /* background: url('assets/img/bg-tarjeta/bg-tarjeta-02.jpg'); */
+  background-size: cover !important;
+  background-color: #000;
   position: absolute;
   top: 0;
   transform: rotateY(180deg);

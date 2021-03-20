@@ -21,7 +21,7 @@ export class CreditCardComponent implements OnInit {
   public loading: boolean = false;
   private id: number | undefined;
   public action: string;
-  public changeFace: boolean = false;
+  public changeFaceCard: boolean = false;
   public rotateButton: boolean = false;
   public monthSelector: number[] = [];
   public yearSelector: number[] = [];
@@ -214,6 +214,31 @@ export class CreditCardComponent implements OnInit {
       fechaExpiracion: creditCard.fechaExpiracion,
       cvv: creditCard.cvv
     });
+  }
+
+  public showCardFront(value: boolean): void {
+    this.changeFaceCard = value;
+  }
+
+  public get getImageCreditCard(): string {
+    let numberCreditCard = this.formCreditCard.get('numeroTarjeta').value[0];
+    if (numberCreditCard === '3') {
+      return 'american-express';
+    } else if (numberCreditCard === '4') {
+      return 'visa';
+    } else if (numberCreditCard === '5') {
+      return 'mastercard'
+    };
+    return null;
+  }
+
+  public get getNumeroTarjetaValue(): string {
+    return this.formCreditCard.get('numeroTarjeta').value;
+  }
+
+  public get getTitularValue(): string {
+    return this.formCreditCard.get('titular').value ?
+      this.formCreditCard.get('titular').value : 'JHON DOE';
   }
 
 }
