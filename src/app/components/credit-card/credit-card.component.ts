@@ -23,8 +23,8 @@ export class CreditCardComponent implements OnInit {
   public action: string;
   public changeFaceCard: boolean = false;
   public rotateButton: boolean = false;
-  public monthSelector: number[] = [];
-  public yearSelector: number[] = [];
+  public monthSelector: string[] = [];
+  public yearSelector: string[] = [];
   private yearActual: number = new Date().getFullYear();
 
   constructor(
@@ -43,13 +43,14 @@ export class CreditCardComponent implements OnInit {
 
   private fillSelectors(): void {
     for (let i = 1; i <= 12; i++) {
-      this.monthSelector.push(i);
+      let k = (i < 10) ? ('0' + i) : i;
+      this.monthSelector.push(k.toString());
     }
 
     let year = this.yearActual.toFixed().split('');
     let yearModified = parseInt(year[2] + year[3]);
     for (let k = yearModified; k <= (yearModified+ 8); k++) {
-      this.yearSelector.push(k);
+      this.yearSelector.push(k.toString());
     }
   }
 
@@ -239,6 +240,20 @@ export class CreditCardComponent implements OnInit {
   public get getTitularValue(): string {
     return this.formCreditCard.get('titular').value ?
       this.formCreditCard.get('titular').value : 'JHON DOE';
+  }
+
+  public get getMonthExpirationValue(): string {
+    return this.formCreditCard.get('monthExpiration').value !== '0' ?
+      this.formCreditCard.get('monthExpiration').value : 'MM';
+  }
+
+  public get getYearExpirationValue(): string {
+    return this.formCreditCard.get('yearExpiration').value !== '0' ?
+      this.formCreditCard.get('yearExpiration').value : 'YY';
+  }
+
+  public get getCvvValue(): string {
+    return this.formCreditCard.get('cvv').value;
   }
 
 }

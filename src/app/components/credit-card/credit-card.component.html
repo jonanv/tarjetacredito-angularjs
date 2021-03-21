@@ -15,6 +15,8 @@
     <div class="col-lg-6">
 
       <!-- TODO: Separar la tarjeta en un componente y renombrar componentes -->
+      <!-- TODO: agregar gulp para optimizar imgs -->
+      <!-- TODO: Investigar si solo se puede agregar letras al regex del titular -->
       <!-- Credit card -->
       <div class="container-card">
         <div class="credit-card"
@@ -31,7 +33,7 @@
               <div class="group-card" id="number">
                 <p class="label">Número tarjeta</p>
                 <p class="number">{{ getNumeroTarjetaValue ?
-                  (getNumeroTarjetaValue | mask: '0000-0000-0000-0000') : '####-####-####-####' }}</p>
+                  (getNumeroTarjetaValue | mask:'0000-0000-0000-0000') : '####-####-####-####' }}</p>
               </div>
               <div class="flexbox">
                 <div class="group-card" id="name">
@@ -41,7 +43,7 @@
                 <div class="group-card" id="expiration">
                   <p class="label">Expiración</p>
                   <p class="expiration">
-                    <span class="month">MM</span> / <span class="year">YY</span>
+                    <span class="month">{{ getMonthExpirationValue }}</span> / <span class="year">{{ getYearExpirationValue }}</span>
                   </p>
                 </div>
               </div>
@@ -60,7 +62,7 @@
               </div>
               <div class="group-card" id="cvv">
                 <p class="label">CVV</p>
-                <p class="cvv"></p>
+                <p class="cvv">{{ getCvvValue }}</p>
               </div>
             </div>
             <p class="class">
@@ -158,7 +160,7 @@
                           [class.is-invalid]="getMonthExpiration"
                           [class.is-valid]="f.monthExpiration?.valid"
                           (click)="showCardFront(false)">
-                          <option disabled selected [value]='0'>MM*</option>
+                          <option disabled selected [value]="0">MM*</option>
                           <option *ngFor="let month of monthSelector"
                             [value]="month">{{ month }}
                           </option>
@@ -167,7 +169,7 @@
                           [class.is-invalid]="getYearExpiration"
                           [class.is-valid]="f.yearExpiration?.valid"
                           (click)="showCardFront(false)">
-                          <option disabled selected [value]='0'>YY*</option>
+                          <option disabled selected [value]="0">YY*</option>
                           <option *ngFor="let year of yearSelector"
                             [value]="year">{{ year }}
                           </option>
@@ -201,6 +203,7 @@
                       [class.is-invalid]="getCvv"
                       [class.is-valid]="f.cvv?.valid"
                       maxlength="3"
+                      mask="000"
                       (click)="showCardFront(true)">
                   </div>
                   <div *ngIf="getCvv" class="my-1">
@@ -250,7 +253,7 @@
               <tbody>
                 <tr *ngFor="let creditCard of creditCards">
                   <td>{{ creditCard.titular }}</td>
-                  <td>{{ creditCard.numeroTarjeta | mask: '0000-0000-0000-0000' }}</td>
+                  <td>{{ creditCard.numeroTarjeta | mask:'0000-0000-0000-0000' }}</td>
                   <td>{{ creditCard.fechaExpiracion }}</td>
                   <td>
                     <a class="a_link"
