@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 export class CreditCardService {
 
   private url: string = 'https://localhost:5001/';
-  private api: string = 'api/tarjeta/';
+  private api: string = 'api/creditcard/';
 
   constructor(
     private http: HttpClient

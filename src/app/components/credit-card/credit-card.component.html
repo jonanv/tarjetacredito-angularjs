@@ -32,13 +32,13 @@
             <div class="data">
               <div class="group-card" id="number">
                 <p class="label">Número tarjeta</p>
-                <p class="number">{{ getNumeroTarjetaValue ?
-                  (getNumeroTarjetaValue | mask:'0000-0000-0000-0000') : '####-####-####-####' }}</p>
+                <p class="number">{{ getNumberCardCreditValue ?
+                  (getNumberCardCreditValue | mask:'0000-0000-0000-0000') : '####-####-####-####' }}</p>
               </div>
               <div class="flexbox">
                 <div class="group-card" id="name">
-                  <p class="label">Numbre tarjeta</p>
-                  <p class="name">{{ getTitularValue | uppercase }}</p>
+                  <p class="label">Nombre tarjeta</p>
+                  <p class="name">{{ getNameHolderValue | uppercase }}</p>
                 </div>
                 <div class="group-card" id="expiration">
                   <p class="label">Expiración</p>
@@ -57,7 +57,7 @@
               <div class="group-card" id="firma">
                 <p class="label">Firma</p>
                 <div class="firma">
-                  <p>{{ getTitularValue | titlecase }}</p>
+                  <p>{{ getNameHolderValue | titlecase }}</p>
                 </div>
               </div>
               <div class="group-card" id="cvv">
@@ -92,23 +92,23 @@
               <div class="input-group input-group-lg">
                 <span class="input-group-text">
                   <i class="fas fa-user"
-                    [class.text-danger]="getTitular"
-                    [class.text-success]="f.titular?.valid">
+                    [class.text-danger]="getNameHolder"
+                    [class.text-success]="f.nameHolder?.valid">
                   </i>
                 </span>
-                <input formControlName="titular"
+                <input formControlName="nameHolder"
                   type="text"
                   class="form-control"
                   placeholder="Titular*"
-                  [class.is-invalid]="getTitular"
-                  [class.is-valid]="f.titular?.valid"
+                  [class.is-invalid]="getNameHolder"
+                  [class.is-valid]="f.nameHolder?.valid"
                   maxlength="50"
                   (click)="showCardFront(false)">
               </div>
-              <div *ngIf="getTitular" class="my-1">
+              <div *ngIf="getNameHolder" class="my-1">
                 <span class="badge bg-danger d-block text-start">Debe ingresar el nombre del titular</span>
               </div>
-              <div *ngIf="f.titular.errors?.pattern" class="my-1">
+              <div *ngIf="f.nameHolder.errors?.pattern" class="my-1">
                 <span class="badge bg-danger d-block text-start">Debe ingresar solo letras</span>
               </div>
             </div>
@@ -117,31 +117,31 @@
               <div class="input-group input-group-lg">
                 <span class="input-group-text">
                   <i class="fas fa-credit-card"
-                    [class.text-danger]="getNumeroTarjeta"
-                    [class.text-success]="f.numeroTarjeta?.valid">
+                    [class.text-danger]="getNumberCardCredit"
+                    [class.text-success]="f.numberCardCredit?.valid">
                   </i>
                 </span>
-                <input formControlName="numeroTarjeta"
+                <input formControlName="numberCardCredit"
                   type="text"
                   class="form-control"
                   placeholder="Número de tarjeta*"
-                  [class.is-invalid]="getNumeroTarjeta"
-                  [class.is-valid]="f.numeroTarjeta?.valid"
+                  [class.is-invalid]="getNumberCardCredit"
+                  [class.is-valid]="f.numberCardCredit?.valid"
                   maxlength="20"
                   mask="0000-0000-0000-0000"
                   (click)="showCardFront(false)">
               </div>
-              <div *ngIf="getNumeroTarjeta" class="my-1">
+              <div *ngIf="getNumberCardCredit" class="my-1">
                 <span class="badge bg-danger d-block text-start">Debe ingresar el número de la tarjeta de crédito</span>
               </div>
-              <div *ngIf="f.numeroTarjeta.errors?.pattern" class="my-1">
+              <div *ngIf="f.numberCardCredit.errors?.pattern" class="my-1">
                 <span class="badge bg-danger d-block text-start">Debe ingresar solo números</span>
               </div>
-              <div *ngIf="f.numeroTarjeta.errors?.minlength" class="my-1">
-                <span class="badge bg-danger d-block text-start">Debe ingresar mínimo {{ f.numeroTarjeta.errors.minlength.requiredLength }} dígitos</span>
+              <div *ngIf="f.numberCardCredit.errors?.minlength" class="my-1">
+                <span class="badge bg-danger d-block text-start">Debe ingresar mínimo {{ f.numberCardCredit.errors.minlength.requiredLength }} dígitos</span>
               </div>
-              <div *ngIf="f.numeroTarjeta.errors?.maxlength" class="my-1">
-                <span class="badge bg-danger d-block text-start">Debe ingresar máximo {{ f.numeroTarjeta.errors.maxlength.requiredLength }} dígitos</span>
+              <div *ngIf="f.numberCardCredit.errors?.maxlength" class="my-1">
+                <span class="badge bg-danger d-block text-start">Debe ingresar máximo {{ f.numberCardCredit.errors.maxlength.requiredLength }} dígitos</span>
               </div>
             </div>
 
@@ -252,9 +252,9 @@
               </thead>
               <tbody>
                 <tr *ngFor="let creditCard of creditCards">
-                  <td>{{ creditCard.titular }}</td>
-                  <td>{{ creditCard.numeroTarjeta | mask:'0000-0000-0000-0000' }}</td>
-                  <td>{{ creditCard.fechaExpiracion }}</td>
+                  <td>{{ creditCard.nameHolder }}</td>
+                  <td>{{ creditCard.numberCardCredit | mask:'0000-0000-0000-0000' }}</td>
+                  <td>{{ creditCard.monthExpiration }}/{{ creditCard.yearExpiration }}</td>
                   <td>
                     <a class="a_link"
                       (click)="updateCreditCard(creditCard)">

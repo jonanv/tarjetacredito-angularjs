@@ -56,11 +56,11 @@ export class CreditCardComponent implements OnInit {
 
   private createForm() {
     this.formCreditCard = this.formBuilder.group({
-      titular: ['', [
+      nameHolder: ['', [
         Validators.required,
         Validators.pattern('[A-Za-zá-úÁ-Ú ]*')
       ]],
-      numeroTarjeta: ['', [
+      numberCardCredit: ['', [
         Validators.required,
         Validators.pattern('^[0-9]+'),
         Validators.maxLength(16),
@@ -87,12 +87,12 @@ export class CreditCardComponent implements OnInit {
     return this.formCreditCard.controls;
   }
 
-  public get getTitular(): boolean {
-    return this.formCreditCard.get('titular').invalid && this.formCreditCard.get('titular').touched;
+  public get getNameHolder(): boolean {
+    return this.formCreditCard.get('nameHolder').invalid && this.formCreditCard.get('nameHolder').touched;
   }
 
-  public get getNumeroTarjeta(): boolean {
-    return this.formCreditCard.get('numeroTarjeta').invalid && this.formCreditCard.get('numeroTarjeta').touched;
+  public get getNumberCardCredit(): boolean {
+    return this.formCreditCard.get('numberCardCredit').invalid && this.formCreditCard.get('numberCardCredit').touched;
   }
 
   public get getMonthExpiration(): boolean {
@@ -110,9 +110,10 @@ export class CreditCardComponent implements OnInit {
 
   private createCreditCard(): CreditCard {
     const creditCard: CreditCard = {
-      titular: this.formCreditCard.get('titular').value,
-      numeroTarjeta: this.formCreditCard.get('numeroTarjeta').value,
-      fechaExpiracion: this.formCreditCard.get('fechaExpiracion').value,
+      nameHolder: this.formCreditCard.get('nameHolder').value,
+      numberCardCredit: this.formCreditCard.get('numberCardCredit').value,
+      monthExpiration: this.formCreditCard.get('monthExpiration').value,
+      yearExpiration: this.formCreditCard.get('yearExpiration').value,
       cvv: this.formCreditCard.get('cvv').value
     }
     return creditCard;
@@ -137,7 +138,7 @@ export class CreditCardComponent implements OnInit {
             if (response) {
               this.toastrService.success('La tarjeta fue registrada con éxito', 'Tarjeta registrada!');
             }
-            this.formCreditCard.reset();
+            this.resetForm();
             this.getCreditCards();
             this.loading = false;
           }, (error) => {
@@ -152,7 +153,7 @@ export class CreditCardComponent implements OnInit {
           .subscribe((response: any) => {
             if (response.message) {
               this.toastrService.info(response.message, 'Tarjeta actualizada!');
-              this.formCreditCard.reset();
+              this.resetForm();
               this.getCreditCards();
               this.action = 'Agregar';
               this.id = undefined;
@@ -181,7 +182,7 @@ export class CreditCardComponent implements OnInit {
   public removeCreditCard(index: number, creditCard: CreditCard): void {
     Swal.fire({
       title: '¿Está seguro?',
-      text: `Está seguro que desea borrar a ${ creditCard.titular }`,
+      text: `Está seguro que desea borrar a ${ creditCard.nameHolder }`,
       icon: 'question',
       showConfirmButton: true,
       showCancelButton: true
@@ -194,7 +195,7 @@ export class CreditCardComponent implements OnInit {
             if (response.message) {
               this.toastrService.error(response.message, 'Tarjeta eliminada!');
               this.getCreditCards();
-              this.formCreditCard.reset();
+              this.resetForm();
               this.action = 'Agregar';
               this.loading = false;
             }
@@ -210,10 +211,21 @@ export class CreditCardComponent implements OnInit {
     this.id = creditCard['id'];
 
     this.formCreditCard.patchValue({
-      titular: creditCard.titular,
-      numeroTarjeta: creditCard.numeroTarjeta,
-      fechaExpiracion: creditCard.fechaExpiracion,
+      nameHolder: creditCard.nameHolder,
+      numberCardCredit: creditCard.numberCardCredit,
+      monthExpiration: creditCard.monthExpiration,
+      yearExpiration: creditCard.yearExpiration,
       cvv: creditCard.cvv
+    });
+  }
+
+  private resetForm(): void {
+    this.formCreditCard.reset({
+      nameHolder: '',
+      numberCardCredit: '',
+      monthExpiration: '0',
+      yearExpiration: '0',
+      cvv: ''
     });
   }
 
@@ -222,7 +234,7 @@ export class CreditCardComponent implements OnInit {
   }
 
   public get getImageCreditCard(): string {
-    let numberCreditCard = this.formCreditCard.get('numeroTarjeta').value[0];
+    let numberCreditCard = this.formCreditCard.get('numberCardCredit').value[0];
     if (numberCreditCard === '3') {
       return 'american-express';
     } else if (numberCreditCard === '4') {
@@ -233,13 +245,13 @@ export class CreditCardComponent implements OnInit {
     return null;
   }
 
-  public get getNumeroTarjetaValue(): string {
-    return this.formCreditCard.get('numeroTarjeta').value;
+  public get getNumberCardCreditValue(): string {
+    return this.formCreditCard.get('numberCardCredit').value;
   }
 
-  public get getTitularValue(): string {
-    return this.formCreditCard.get('titular').value ?
-      this.formCreditCard.get('titular').value : 'JHON DOE';
+  public get getNameHolderValue(): string {
+    return this.formCreditCard.get('nameHolder').value ?
+      this.formCreditCard.get('nameHolder').value : 'JHON DOE';
   }
 
   public get getMonthExpirationValue(): string {
