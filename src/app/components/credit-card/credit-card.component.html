@@ -152,23 +152,25 @@
                     <div class="input-group input-group-lg">
                       <span class="input-group-text">
                         <i class="fas fa-calendar-alt"
-                          [class.text-danger]="getMonthExpiration || getYearExpiration"
-                          [class.text-success]="f.monthExpiration?.valid || f.yearExpiration?.valid">
+                          [class.text-danger]="getMonthExpiration || getYearExpiration || getMonthAndYearExpiration"
+                          [class.text-success]="(f.monthExpiration?.valid || f.yearExpiration?.valid) && !getMonthAndYearExpiration">
                         </i>
                       </span>
                         <select class="form-select" formControlName="monthExpiration"
-                          [class.is-invalid]="getMonthExpiration"
-                          [class.is-valid]="f.monthExpiration?.valid"
-                          (click)="showCardFront(false)">
+                          [class.is-invalid]="getMonthExpiration || getMonthAndYearExpiration"
+                          [class.is-valid]="f.monthExpiration?.valid && !getMonthAndYearExpiration"
+                          (click)="showCardFront(false)"
+                          [ngClass]="{'text-secondary': getMonthExpirationValueZero, 'text-dark': !getMonthExpirationValueZero}">
                           <option disabled selected [value]="0">MM*</option>
                           <option *ngFor="let month of monthSelector"
                             [value]="month">{{ month }}
                           </option>
                         </select>
                         <select class="form-select" formControlName="yearExpiration"
-                          [class.is-invalid]="getYearExpiration"
-                          [class.is-valid]="f.yearExpiration?.valid"
-                          (click)="showCardFront(false)">
+                          [class.is-invalid]="getYearExpiration || getMonthAndYearExpiration"
+                          [class.is-valid]="f.yearExpiration?.valid && !getMonthAndYearExpiration"
+                          (click)="showCardFront(false)"
+                          [ngClass]="{'text-secondary': getYearExpirationValueZero, 'text-dark': !getYearExpirationValueZero}">
                           <option disabled selected [value]="0">YY*</option>
                           <option *ngFor="let year of yearSelector"
                             [value]="year">{{ year }}
@@ -183,6 +185,9 @@
                     </div>
                     <div *ngIf="getYearExpiration" class="my-1">
                       <span class="badge bg-danger d-block text-start">Debe ingresar un año</span>
+                    </div>
+                    <div *ngIf="getMonthAndYearExpiration" class="my-1">
+                      <span class="badge bg-danger d-block text-start">Debe ingresar una fecha valida</span>
                     </div>
                   </div>
               </div>
