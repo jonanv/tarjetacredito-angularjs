@@ -188,9 +188,16 @@
 
           <h3 class="titulo">LISTA DE TARJETAS</h3>
 
-          <ng-container *ngIf="loading">
+          <ng-container *ngIf="!error && loading">
             <div class="my-3 d-flex justify-content-center align-content-center">
               <span><i class="fas fa-spinner fa-spin fa-3x"></i></span>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="error">
+            <div>
+              <span><i class="fas fa-exclamation-triangle text-danger"></i></span>
+              {{ error }}
             </div>
           </ng-container>
 

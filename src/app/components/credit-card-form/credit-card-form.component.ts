@@ -27,6 +27,7 @@ export class CreditCardFormComponent implements OnInit {
   private monthActual: number = new Date().getMonth();
   public rotateButton: boolean;
   public changeFaceCard: boolean;
+  public error: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -193,6 +194,7 @@ export class CreditCardFormComponent implements OnInit {
           this.loading = false;
         }, (error) => {
           console.error(error);
+          this.error = error.error;
         });
     }, 500);
   }
