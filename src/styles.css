@@ -246,7 +246,7 @@ span i.text-success::before {
 .card-form-credit-card {
   padding: 150px 30px 30px 30px;
   position: relative;
-  top: -150px;
+  top: -190px;
   z-index: 1;
   clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
   transition: clip-path .3s ease-out;

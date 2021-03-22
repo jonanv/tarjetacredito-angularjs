@@ -8,10 +8,9 @@
 [![License][license-badge]][license-url]
 
 # Site
-<!-- TODO: Agregar imagenes del frontend -->
-<!-- ![tarjetacredito angularjs](https://i.imgur.com/B2heenX.png) -->
-<!-- ![tarjetacredito angularjs 1](https://i.imgur.com/Me55x8o.png)
-![tarjetacredito angularjs 2](https://i.imgur.com/yHrX9sL.png) -->
+![tarjetacredito angularjs](https://i.imgur.com/BtJ5256.png)
+![tarjetacredito angularjs 1](https://i.imgur.com/CjYDVm1.png)
+![tarjetacredito angularjs 2](https://i.imgur.com/P6Tg7n2.png)
 
 # Install dependences
 in ```tarjetacredito-angularjs/```
