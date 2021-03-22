@@ -16,12 +16,14 @@ import { NgxMaskModule } from "ngx-mask";
 // Imports components
 import { AppComponent } from './app.component';
 import { CreditCardContainerComponent } from './components/credit-card-container/credit-card-container.component';
+import { CreditCardFormComponent } from './components/credit-card-form/credit-card-form.component';
 import { CreditCardComponent } from './components/credit-card/credit-card.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreditCardContainerComponent,
+    CreditCardFormComponent,
     CreditCardComponent
   ],
   imports: [

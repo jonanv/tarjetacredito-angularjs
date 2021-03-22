@@ -1,0 +1,231 @@
+<div class="container mt-5">
+
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <div class="card">
+        <div class="card-body text-center">
+          <h3 class="titulo">TARJETA CREDITO</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-lg-6">
+
+      <!-- Tarjeta de credito y boton -->
+      <app-credit-card
+        [formCreditCard]="formCreditCard"
+        (rotateButtonEmitter)="proccessRotateButtonEmitter($event)"
+        [changeFaceCard]="changeFaceCard"
+        (changeFaceCardEmitter)="proccessChangeFaceCardEmitter($event)">
+      </app-credit-card>
+
+      <!-- Formulario Tarjeta de credito -->
+      <div class="card card-form-credit-card"
+        [ngClass]="{'active': rotateButton}">
+        <div class="card-body">
+
+          <h3 class="titulo">{{ action | uppercase }} TARJETA</h3>
+
+          <!-- Formulario Credit Card -->
+          <form class="needs-validation"
+            autocomplete="off"
+            [formGroup]="formCreditCard"
+            (ngSubmit)="saveCreditCard()">
+            <div class="form-group mb-3">
+              <div class="input-group input-group-lg">
+                <span class="input-group-text">
+                  <i class="fas fa-user"
+                    [class.text-danger]="getNameHolder"
+                    [class.text-success]="f.nameHolder?.valid">
+                  </i>
+                </span>
+                <input formControlName="nameHolder"
+                  type="text"
+                  class="form-control"
+                  placeholder="Titular*"
+                  [class.is-invalid]="getNameHolder"
+                  [class.is-valid]="f.nameHolder?.valid"
+                  maxlength="40"
+                  (click)="showCardFront(false)">
+              </div>
+              <div *ngIf="getNameHolder" class="my-1 animate__animated animate__fadeIn animate__fast">
+                <span class="badge bg-danger d-block text-start">Debe ingresar el nombre del titular</span>
+              </div>
+              <div *ngIf="f.nameHolder.errors?.pattern" class="my-1 animate__animated animate__fadeIn animate__fast">
+                <span class="badge bg-danger d-block text-start">Debe ingresar solo letras</span>
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <div class="input-group input-group-lg">
+                <span class="input-group-text">
+                  <i class="fas fa-credit-card"
+                    [class.text-danger]="getNumberCardCredit"
+                    [class.text-success]="f.numberCardCredit?.valid">
+                  </i>
+                </span>
+                <input formControlName="numberCardCredit"
+                  type="text"
+                  class="form-control"
+                  placeholder="Número de tarjeta*"
+                  [class.is-invalid]="getNumberCardCredit"
+                  [class.is-valid]="f.numberCardCredit?.valid"
+                  maxlength="20"
+                  mask="0000-0000-0000-0000"
+                  (click)="showCardFront(false)">
+              </div>
+              <div *ngIf="getNumberCardCredit" class="my-1 animate__animated animate__fadeIn animate__fast">
+                <span class="badge bg-danger d-block text-start">Debe ingresar el número de la tarjeta de crédito</span>
+              </div>
+              <div *ngIf="f.numberCardCredit.errors?.pattern" class="my-1 animate__animated animate__fadeIn animate__fast">
+                <span class="badge bg-danger d-block text-start">Debe ingresar solo números</span>
+              </div>
+              <div *ngIf="f.numberCardCredit.errors?.minlength" class="my-1 animate__animated animate__fadeIn animate__fast">
+                <span class="badge bg-danger d-block text-start">Debe ingresar mínimo {{ f.numberCardCredit.errors.minlength.requiredLength }} dígitos</span>
+              </div>
+              <div *ngIf="f.numberCardCredit.errors?.maxlength" class="my-1 animate__animated animate__fadeIn animate__fast">
+                <span class="badge bg-danger d-block text-start">Debe ingresar máximo {{ f.numberCardCredit.errors.maxlength.requiredLength }} dígitos</span>
+              </div>
+            </div>
+
+            <div class="row">
+
+              <div class="col-lg-7 pe-0">
+                  <div class="form-group mb-3">
+                    <div class="input-group input-group-lg">
+                      <span class="input-group-text">
+                        <i class="fas fa-calendar-alt"
+                          [class.text-danger]="getMonthExpiration || getYearExpiration || getMonthAndYearExpiration"
+                          [class.text-success]="(f.monthExpiration?.valid || f.yearExpiration?.valid) && !getMonthAndYearExpiration">
+                        </i>
+                      </span>
+                        <select class="form-select" formControlName="monthExpiration"
+                          [class.is-invalid]="getMonthExpiration || getMonthAndYearExpiration"
+                          [class.is-valid]="f.monthExpiration?.valid && !getMonthAndYearExpiration"
+                          (click)="showCardFront(false)"
+                          [ngClass]="{'text-secondary': getMonthExpirationValueZero, 'text-dark': !getMonthExpirationValueZero}">
+                          <option disabled selected [value]="0">MM*</option>
+                          <option *ngFor="let month of monthSelector"
+                            [value]="month">{{ month }}
+                          </option>
+                        </select>
+                        <select class="form-select" formControlName="yearExpiration"
+                          [class.is-invalid]="getYearExpiration || getMonthAndYearExpiration"
+                          [class.is-valid]="f.yearExpiration?.valid && !getMonthAndYearExpiration"
+                          (click)="showCardFront(false)"
+                          [ngClass]="{'text-secondary': getYearExpirationValueZero, 'text-dark': !getYearExpirationValueZero}">
+                          <option disabled selected [value]="0">YY*</option>
+                          <option *ngFor="let year of yearSelector"
+                            [value]="year">{{ year }}
+                          </option>
+                        </select>
+                    </div>
+                    <div *ngIf="getMonthExpiration && getYearExpiration" class="my-1 animate__animated animate__fadeIn animate__fast">
+                      <span class="badge bg-danger d-block text-start">Debe ingresar una fecha</span>
+                    </div>
+                    <div *ngIf="getMonthExpiration" class="my-1 animate__animated animate__fadeIn animate__fast">
+                      <span class="badge bg-danger d-block text-start">Debe ingresar un mes</span>
+                    </div>
+                    <div *ngIf="getYearExpiration" class="my-1 animate__animated animate__fadeIn animate__fast">
+                      <span class="badge bg-danger d-block text-start">Debe ingresar un año</span>
+                    </div>
+                    <div *ngIf="getMonthAndYearExpiration" class="my-1 animate__animated animate__fadeIn animate__fast">
+                      <span class="badge bg-danger d-block text-start">Debe ingresar una fecha valida</span>
+                    </div>
+                  </div>
+              </div>
+
+              <div class="col-lg-5">
+                <div class="form-group mb-3">
+                  <div class="input-group input-group-lg">
+                    <span class="input-group-text">
+                      <i class="fas fa-key"
+                        [class.text-danger]="getCvv"
+                        [class.text-success]="f.cvv?.valid">
+                      </i>
+                    </span>
+                    <input formControlName="cvv"
+                      type="password"
+                      class="form-control"
+                      placeholder="CVV*"
+                      [class.is-invalid]="getCvv"
+                      [class.is-valid]="f.cvv?.valid"
+                      maxlength="3"
+                      mask="000"
+                      (click)="showCardFront(true)">
+                  </div>
+                  <div *ngIf="getCvv" class="my-1 animate__animated animate__fadeIn animate__fast">
+                    <span class="badge bg-danger d-block text-start">Debe ingresar una clave</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="d-grid gap-2">
+              <button class="btn btn-primary btn-block btn-save"
+                type="submit"
+                [disabled]="this.formCreditCard.invalid || loading">
+                <i class="fas"
+                  [ngClass]="{'fa-spinner fa-spin': loading, 'fa-save': !loading}">
+                </i>
+                <span *ngIf="!loading">&nbsp;Aceptar</span>
+                <span *ngIf="loading">&nbsp;Guardando...</span>
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Lista de tarjetas de credito -->
+    <div class="col-lg-6">
+      <div class="card animate__animated animate__fadeIn animate__fast">
+        <div class="card-body">
+
+          <h3 class="titulo">LISTA DE TARJETAS</h3>
+
+          <ng-container *ngIf="loading">
+            <div class="my-3 d-flex justify-content-center align-content-center">
+              <span><i class="fas fa-spinner fa-spin fa-3x"></i></span>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="!loading">
+            <table class="table">
+              <thead>
+                <th>
+                  <tr></tr>
+                </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let creditCard of creditCards">
+                  <td>{{ creditCard.nameHolder }}</td>
+                  <td>{{ creditCard.numberCardCredit | mask:'0000-0000-0000-0000' }}</td>
+                  <td>{{ creditCard.monthExpiration }}/{{ creditCard.yearExpiration }}</td>
+                  <td>
+                    <a class="a_link"
+                      (click)="updateCreditCard(creditCard)">
+                      <i class="far fa-edit text-info"></i>
+                    </a>
+                  </td>
+                  <td>
+                    <a class="a_link"
+                      (click)="removeCreditCard(creditCard.id, creditCard)">
+                      <i class="far fa-trash-alt text-danger"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </ng-container>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
