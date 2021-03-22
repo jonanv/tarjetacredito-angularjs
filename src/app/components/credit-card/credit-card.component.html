@@ -10,20 +10,20 @@
     </div>
   </div>
 
-  <!-- TODO: Agregar animated CSS -->
   <div class="row mt-4">
     <div class="col-lg-6">
 
       <!-- TODO: Separar la tarjeta en un componente y renombrar componentes -->
       <!-- TODO: agregar gulp para optimizar imgs -->
       <!-- TODO: Investigar si solo se puede agregar letras al regex del titular -->
+
       <!-- Credit card -->
       <div class="container-card">
         <div class="credit-card"
           (click)="changeFaceCard = !changeFaceCard"
           [ngClass]="{'active': changeFaceCard}">
 
-          <div class="card-front"
+          <div class="card-front animate__animated animate__fadeIn animate__fast"
             [ngStyle]="{'background': 'url(assets/img/bg-tarjeta/bg-' + getImageCreditCard + '.jpg)'}">
             <div class="brand-logo">
               <img *ngIf="getImageCreditCard" [src]="'assets/img/logos/' + getImageCreditCard + '.png'" alt="">
@@ -50,7 +50,7 @@
             </div>
           </div>
 
-          <div class="card-back"
+          <div class="card-back animate__animated animate__fadeIn animate__fast"
             [ngStyle]="{'background': 'url(assets/img/bg-tarjeta/bg-' + getImageCreditCard + '.jpg)'}">
             <div class="magnetic-bar"></div>
             <div class="data">
@@ -76,18 +76,25 @@
 
       <!-- Container button -->
       <div class="container-btn">
-        <button class="btn-open-form" id="btn-open-form" (click)="rotateButton = !rotateButton" [ngClass]="{'active': rotateButton}">
+        <button class="btn-open-form animate__animated animate__fadeIn animate__slower"
+          id="btn-open-form"
+          (click)="rotateButton = !rotateButton"
+          [ngClass]="{'active': rotateButton}">
           <i class="fas fa-plus"></i>
         </button>
       </div>
 
-      <div class="card card-form-credit-card" [ngClass]="{'active': rotateButton}">
+      <div class="card card-form-credit-card"
+        [ngClass]="{'active': rotateButton}">
         <div class="card-body">
 
           <h3 class="titulo">{{ action | uppercase }} TARJETA</h3>
 
           <!-- Formulario Credit Card -->
-          <form class="needs-validation" autocomplete="off" [formGroup]="formCreditCard" (ngSubmit)="saveCreditCard()">
+          <form class="needs-validation"
+            autocomplete="off"
+            [formGroup]="formCreditCard"
+            (ngSubmit)="saveCreditCard()">
             <div class="form-group mb-3">
               <div class="input-group input-group-lg">
                 <span class="input-group-text">
@@ -105,10 +112,10 @@
                   maxlength="50"
                   (click)="showCardFront(false)">
               </div>
-              <div *ngIf="getNameHolder" class="my-1">
+              <div *ngIf="getNameHolder" class="my-1 animate__animated animate__fadeIn animate__fast">
                 <span class="badge bg-danger d-block text-start">Debe ingresar el nombre del titular</span>
               </div>
-              <div *ngIf="f.nameHolder.errors?.pattern" class="my-1">
+              <div *ngIf="f.nameHolder.errors?.pattern" class="my-1 animate__animated animate__fadeIn animate__fast">
                 <span class="badge bg-danger d-block text-start">Debe ingresar solo letras</span>
               </div>
             </div>
@@ -131,16 +138,16 @@
                   mask="0000-0000-0000-0000"
                   (click)="showCardFront(false)">
               </div>
-              <div *ngIf="getNumberCardCredit" class="my-1">
+              <div *ngIf="getNumberCardCredit" class="my-1 animate__animated animate__fadeIn animate__fast">
                 <span class="badge bg-danger d-block text-start">Debe ingresar el número de la tarjeta de crédito</span>
               </div>
-              <div *ngIf="f.numberCardCredit.errors?.pattern" class="my-1">
+              <div *ngIf="f.numberCardCredit.errors?.pattern" class="my-1 animate__animated animate__fadeIn animate__fast">
                 <span class="badge bg-danger d-block text-start">Debe ingresar solo números</span>
               </div>
-              <div *ngIf="f.numberCardCredit.errors?.minlength" class="my-1">
+              <div *ngIf="f.numberCardCredit.errors?.minlength" class="my-1 animate__animated animate__fadeIn animate__fast">
                 <span class="badge bg-danger d-block text-start">Debe ingresar mínimo {{ f.numberCardCredit.errors.minlength.requiredLength }} dígitos</span>
               </div>
-              <div *ngIf="f.numberCardCredit.errors?.maxlength" class="my-1">
+              <div *ngIf="f.numberCardCredit.errors?.maxlength" class="my-1 animate__animated animate__fadeIn animate__fast">
                 <span class="badge bg-danger d-block text-start">Debe ingresar máximo {{ f.numberCardCredit.errors.maxlength.requiredLength }} dígitos</span>
               </div>
             </div>
@@ -177,16 +184,16 @@
                           </option>
                         </select>
                     </div>
-                    <div *ngIf="getMonthExpiration && getYearExpiration" class="my-1">
+                    <div *ngIf="getMonthExpiration && getYearExpiration" class="my-1 animate__animated animate__fadeIn animate__fast">
                       <span class="badge bg-danger d-block text-start">Debe ingresar una fecha</span>
                     </div>
-                    <div *ngIf="getMonthExpiration" class="my-1">
+                    <div *ngIf="getMonthExpiration" class="my-1 animate__animated animate__fadeIn animate__fast">
                       <span class="badge bg-danger d-block text-start">Debe ingresar un mes</span>
                     </div>
-                    <div *ngIf="getYearExpiration" class="my-1">
+                    <div *ngIf="getYearExpiration" class="my-1 animate__animated animate__fadeIn animate__fast">
                       <span class="badge bg-danger d-block text-start">Debe ingresar un año</span>
                     </div>
-                    <div *ngIf="getMonthAndYearExpiration" class="my-1">
+                    <div *ngIf="getMonthAndYearExpiration" class="my-1 animate__animated animate__fadeIn animate__fast">
                       <span class="badge bg-danger d-block text-start">Debe ingresar una fecha valida</span>
                     </div>
                   </div>
@@ -211,7 +218,7 @@
                       mask="000"
                       (click)="showCardFront(true)">
                   </div>
-                  <div *ngIf="getCvv" class="my-1">
+                  <div *ngIf="getCvv" class="my-1 animate__animated animate__fadeIn animate__fast">
                     <span class="badge bg-danger d-block text-start">Debe ingresar una clave</span>
                   </div>
                 </div>
@@ -224,7 +231,7 @@
                 type="submit"
                 [disabled]="this.formCreditCard.invalid || loading">
                 <i class="fas"
-                  [ngClass]="{'fa-spin fa-sync': loading, 'fa-save': !loading}">
+                  [ngClass]="{'fa-spinner fa-spin': loading, 'fa-save': !loading}">
                 </i>
                 <span *ngIf="!loading">&nbsp;Aceptar</span>
                 <span *ngIf="loading">&nbsp;Guardando...</span>
@@ -237,14 +244,14 @@
     </div>
 
     <div class="col-lg-6">
-      <div class="card animate__animated animate__backInDown">
+      <div class="card animate__animated animate__fadeIn animate__fast">
         <div class="card-body">
 
           <h3 class="titulo">LISTA DE TARJETAS</h3>
 
           <ng-container *ngIf="loading">
             <div class="my-3 d-flex justify-content-center align-content-center">
-              <span><i class="fas fa-spin fa-sync fa-3x"></i></span>
+              <span><i class="fas fa-spinner fa-spin fa-3x"></i></span>
             </div>
           </ng-container>
 

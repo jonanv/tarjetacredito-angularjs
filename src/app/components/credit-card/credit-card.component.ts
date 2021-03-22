@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { CreditCard } from 'src/app/interfaces/credit-card.interface';
 import { CreditCardService } from '../../services/credit-card.service';
-import { first } from 'rxjs/operators';
+import { first, timeout } from 'rxjs/operators';
 import Swal from "sweetalert2";
 import { ValidatorsService } from '../../services/validators.service';
 
@@ -187,14 +187,16 @@ export class CreditCardComponent implements OnInit {
 
   private getCreditCards(): void {
     this.loading = true;
-    this.creditCardService.getCreditCards()
-      .pipe(first())
-      .subscribe((response: CreditCard[]) => {
-        this.creditCards = response;
-        this.loading = false;
-      }, (error) => {
-        console.error(error);
-      });
+    setTimeout(() => {
+      this.creditCardService.getCreditCards()
+        .pipe(first())
+        .subscribe((response: CreditCard[]) => {
+          this.creditCards = response;
+          this.loading = false;
+        }, (error) => {
+          console.error(error);
+        });
+    }, 1000);
   }
 
   public removeCreditCard(index: number, creditCard: CreditCard): void {
