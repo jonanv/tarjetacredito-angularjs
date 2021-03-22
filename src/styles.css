@@ -91,7 +91,7 @@ span i.text-success::before {
   width: 100%;
   /* background: url('assets/img/bg-tarjeta/bg-tarjeta-02.jpg'); */
   background-size: cover !important;
-  background-color: #000;
+  background-color: #000 !important;
 }
 
 .credit-card.active .card-front {
